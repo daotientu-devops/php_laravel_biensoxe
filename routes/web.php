@@ -14,3 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/vrp_admin', function () {
+    return view('vrp_admin/index');
+});
