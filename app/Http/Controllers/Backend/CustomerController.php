@@ -23,6 +23,6 @@ class CustomerController extends Controller
     public function index()
     {
         $customers = DB::table('customers')->paginate($this->limit);
-        return view('customer.index', compact('customers'));
+        return view('vrp_backend.customers.index', compact('customers'));
     }
 }

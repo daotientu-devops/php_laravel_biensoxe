@@ -30,7 +30,7 @@ class DashboardController extends Controller
         $post_count = Posts::count();
         $user_count = User::count();
         $activities = \Activity::listLog(0, 10);
-        return view('dashboard', compact(
+        return view('vrp_backend.dashboard', compact(
             'category_count',
             'post_count',
             'user_count',

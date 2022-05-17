@@ -29,6 +29,6 @@ class HomepageController extends Controller
         $partners = DB::table('partners')->select('name', 'logo', 'url')->where('type', '=', 1)->get(); // 1: ĐỐI TÁC CHIẾN LƯỢC
         $comments = DB::table('comments')->select('author_name', 'author_avatar', 'content')->get();
         $authors = DB::table('authors')->select('name', 'avatar', 'share_url')->get();
-        return view('homepage.index', compact('setting', 'info', 'solutions', 'partners', 'comments', 'authors'));
+        return view('vrp_frontend.homepage', compact('setting', 'info', 'solutions', 'partners', 'comments', 'authors'));
     }
 }

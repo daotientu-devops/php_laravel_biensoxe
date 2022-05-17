@@ -41,7 +41,7 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     // Quản lý người dùng đăng ký
-    Route::group(['prefix' => 'customer'], function () {
+    Route::group(['prefix' => 'customers'], function () {
         Route::get('/', ['as' => 'index', 'uses' => 'CustomerController@index']);
     });
 });
