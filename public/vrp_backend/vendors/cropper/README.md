@@ -85,7 +85,7 @@ The [cdnjs](https://github.com/cdnjs/cdnjs) provides CDN support for Cropper's C
 Initialize with `$.fn.cropper` method.
 
 ```html
-<!-- Wrap the image or canvas element with a block element (container) -->
+blocks
 <div>
   <img id="image" src="picture.jpg">
 </div>

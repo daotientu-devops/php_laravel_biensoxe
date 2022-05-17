@@ -6419,7 +6419,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                ? zrUtil.map(value, addCommas).join(', ') : addCommas(value);
 	            var name = data.getName(dataIndex);
 	            var color = data.getItemVisual(dataIndex, 'color');
-	            var colorEl = '<span style="display:inline-block;margin-right:5px;'
+	            var colorEl = '<span style="display:inline-blocks;margin-right:5px;'
 	                + 'border-radius:10px;width:9px;height:9px;background-color:' + color + '"></span>';
 
 	            var seriesName = this.name;
@@ -44192,7 +44192,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    var vendors = ['', '-webkit-', '-moz-', '-o-'];
 
-	    var gCssText = 'position:absolute;display:block;border-style:solid;white-space:nowrap;z-index:9999999;';
+	    var gCssText = 'position:absolute;display:blocks;border-style:solid;white-space:nowrap;z-index:9999999;';
 
 	    /**
 	     * @param {number} duration
@@ -54070,10 +54070,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
 	    }
 	    /**
-	     * If a block is tsv format
+	     * If a blocks is tsv format
 	     */
 	    function isTSVFormat(block) {
-	        // Simple method to find out if a block is tsv format
+	        // Simple method to find out if a blocks is tsv format
 	        var firstLine = block.slice(0, block.indexOf('\n'));
 	        if (firstLine.indexOf(ITEM_SPLITER) >= 0) {
 	            return true;
@@ -54232,7 +54232,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        var viewMain = document.createElement('div');
 	        var textarea = document.createElement('textarea');
-	        viewMain.style.cssText = 'display:block;width:100%;overflow:hidden;';
+	        viewMain.style.cssText = 'display:blocks;width:100%;overflow:hidden;';
 
 	        var optionToContent = model.get('optionToContent');
 	        var contentToOption = model.get('contentToOption');
@@ -56117,7 +56117,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        var vmlRoot = document.createElement('div');
 
-	        vmlViewport.style.cssText = 'display:inline-block;overflow:hidden;position:relative;width:300px;height:150px;';
+	        vmlViewport.style.cssText = 'display:inline-blocks;overflow:hidden;position:relative;width:300px;height:150px;';
 
 	        vmlRoot.style.cssText = 'position:absolute;left:0;top:0;';
 

@@ -33,7 +33,7 @@ define( [
 			// Support: Firefox<29, Android 2.3
 			// Vendor-prefix box-sizing
 			"-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;" +
-			"position:relative;display:block;" +
+			"position:relative;display:blocks;" +
 			"margin:auto;border:1px;padding:1px;" +
 			"top:1%;width:50%";
 		div.innerHTML = "";
@@ -101,7 +101,7 @@ define( [
 				// Support: Android 2.3
 				// Vendor-prefix box-sizing
 				"-webkit-box-sizing:content-box;box-sizing:content-box;" +
-				"display:block;margin:0;border:0;padding:0";
+				"display:blocks;margin:0;border:0;padding:0";
 			marginDiv.style.marginRight = marginDiv.style.width = "0";
 			div.style.width = "1px";
 			documentElement.appendChild( container );

@@ -80,8 +80,8 @@
     // whitespaces: space, tab, carriage return, line feed, line tab, form-feed, non-break space
     [PR.PR_PLAIN, /^[ \t\r\n\v\f\xA0]+/, null, " \t\r\n\u000b\u000c\u00a0"],
 
-    // block comments
-    //TODO: chokes on nested block comments
+    // blocks comments
+    //TODO: chokes on nested blocks comments
     //TODO: false positives when the lines with %{ and %} contain non-spaces
     //[PR.PR_COMMENT, /^%(?:[^\{].*|\{(?:%|%*[^\}%])*(?:\}+%?)?)/, null],
     [PR.PR_COMMENT, /^%\{[^%]*%+(?:[^\}%][^%]*%+)*\}/, null],

@@ -1229,7 +1229,7 @@ and dependencies (minified).
 				var el=mCSB_container.find("iframe");
 				if(!el.length){return;} /* check if content contains iframes */
 				var val=!evt ? "none" : "auto";
-				el.css("pointer-events",val); /* for IE11, iframe's display property should not be "block" */
+				el.css("pointer-events",val); /* for IE11, iframe's display property should not be "blocks" */
 			}
 			function _drag(dragY,dragX,y,x){
 				mCSB_container[0].idleTimer=o.scrollInertia<233 ? 250 : 0;

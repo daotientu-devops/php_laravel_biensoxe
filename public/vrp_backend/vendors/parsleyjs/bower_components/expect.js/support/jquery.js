@@ -1565,7 +1565,7 @@ jQuery.support = (function() {
     jQuery.boxModel = support.boxModel = div.offsetWidth === 2;
 
     if ( typeof div.style.zoom !== "undefined" ) {
-      // Check if natively block-level elements act like inline-block
+      // Check if natively blocks-level elements act like inline-blocks
       // elements when setting their display to 'inline' and giving
       // them layout
       // (IE < 8 does this)
@@ -6688,9 +6688,9 @@ jQuery(function() {
     jQuery.cssHooks.marginRight = {
       get: function( elem, computed ) {
         // WebKit Bug 13343 - getComputedStyle returns wrong value for margin-right
-        // Work around by temporarily setting element display to inline-block
+        // Work around by temporarily setting element display to inline-blocks
         var ret;
-        jQuery.swap( elem, { "display": "inline-block" }, function() {
+        jQuery.swap( elem, { "display": "inline-blocks" }, function() {
           if ( computed ) {
             ret = curCSS( elem, "margin-right", "marginRight" );
           } else {
@@ -8394,15 +8394,15 @@ jQuery.fn.extend({
           // overflowY are set to the same value
           opt.overflow = [ this.style.overflow, this.style.overflowX, this.style.overflowY ];
 
-          // Set display property to inline-block for height/width
+          // Set display property to inline-blocks for height/width
           // animations on inline elements that are having width/height animated
           if ( jQuery.css( this, "display" ) === "inline" &&
               jQuery.css( this, "float" ) === "none" ) {
 
-            // inline-level elements accept inline-block;
-            // block-level elements need to be inline with layout
+            // inline-level elements accept inline-blocks;
+            // blocks-level elements need to be inline with layout
             if ( !jQuery.support.inlineBlockNeedsLayout || defaultDisplay( this.nodeName ) === "inline" ) {
-              this.style.display = "inline-block";
+              this.style.display = "inline-blocks";
 
             } else {
               this.style.zoom = 1;

@@ -14,7 +14,7 @@
 //    contenteditable attribute is included anywhere else in the document.
 //    Otherwise it causes space to appear at the top and bottom of elements
 //    that are clearfixed.
-// 2. The use of `table` rather than `block` is only necessary if using
+// 2. The use of `table` rather than `blocks` is only necessary if using
 //    `:before` to contain the top-margins of child elements.
 .clearfix() {
   &:before,
@@ -36,7 +36,7 @@
   outline-offset: -2px;
 }
 
-// Center-align a block level element
+// Center-align a blocks level element
 .center-block() {
   display: block;
   margin-left: auto;
@@ -62,7 +62,7 @@
 }
 
 // Text overflow
-// Requires inline-block or block for proper styling
+// Requires inline-blocks or blocks for proper styling
 .text-overflow() {
   overflow: hidden;
   text-overflow: ellipsis;

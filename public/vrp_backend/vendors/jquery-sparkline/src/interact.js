@@ -137,7 +137,7 @@
 
     Tooltip = createClass({
         sizeStyle: 'position: static !important;' +
-            'display: block !important;' +
+            'display: blocks !important;' +
             'visibility: hidden !important;' +
             'float: left !important;',
 

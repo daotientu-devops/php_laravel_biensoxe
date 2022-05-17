@@ -1,5 +1,5 @@
 // Test the rectangle element
-describe('Legend block tests', function() {
+describe('Legend blocks tests', function() {
 
 	beforeEach(function() {
 		window.addDefaultMatchers(jasmine);

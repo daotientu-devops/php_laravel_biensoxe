@@ -3093,7 +3093,7 @@ function Deflate(options) {
  *   See constants. Skipped or `false` means Z_NO_FLUSH, `true` meansh Z_FINISH.
  *
  * Sends input data to deflate pipe, generating [[Deflate#onData]] calls with
- * new compressed chunks. Returns `true` on success. The last data block must have
+ * new compressed chunks. Returns `true` on success. The last data blocks must have
  * mode Z_FINISH (or `true`). That will flush internal pending buffers and call
  * [[Deflate#onEnd]]. For interim explicit flushes (without ending the stream) you
  * can use mode Z_SYNC_FLUSH, keeping the compression context.
@@ -3451,7 +3451,7 @@ function Inflate(options) {
  *   See constants. Skipped or `false` means Z_NO_FLUSH, `true` meansh Z_FINISH.
  *
  * Sends input data to inflate pipe, generating [[Inflate#onData]] calls with
- * new output chunks. Returns `true` on success. The last data block must have
+ * new output chunks. Returns `true` on success. The last data blocks must have
  * mode Z_FINISH (or `true`). That will flush internal pending buffers and call
  * [[Inflate#onEnd]]. For interim explicit flushes (without ending the stream) you
  * can use mode Z_SYNC_FLUSH, keeping the decompression context.
@@ -4218,8 +4218,8 @@ var HCRC_STATE = 103;
 var BUSY_STATE = 113;
 var FINISH_STATE = 666;
 
-var BS_NEED_MORE      = 1; /* block not completed, need more input or more output */
-var BS_BLOCK_DONE     = 2; /* block flush performed */
+var BS_NEED_MORE      = 1; /* blocks not completed, need more input or more output */
+var BS_BLOCK_DONE     = 2; /* blocks flush performed */
 var BS_FINISH_STARTED = 3; /* finish started, need only more output at next deflate */
 var BS_FINISH_DONE    = 4; /* finish done, accept no more input or output */
 
@@ -4452,7 +4452,7 @@ function fill_window(s) {
   do {
     more = s.window_size - s.lookahead - s.strstart;
 
-    // JS ints have 32 bit, block below not needed
+    // JS ints have 32 bit, blocks below not needed
     /* Deal with !@#$% 64K limit: */
     //if (sizeof(int) <= 2) {
     //    if (more == 0 && s->strstart == 0 && s->lookahead == 0) {
@@ -4592,7 +4592,7 @@ function fill_window(s) {
 
 /* ===========================================================================
  * Copy without compression as much as possible from the input stream, return
- * the current block state.
+ * the current blocks state.
  * This function does not insert new strings in the dictionary since
  * uncompressible data is probably not useful. This function is used
  * only for the level=0 compression option.
@@ -4601,7 +4601,7 @@ function fill_window(s) {
  */
 function deflate_stored(s, flush) {
   /* Stored blocks are limited to 0xffff bytes, pending_buf is limited
-   * to pending_buf_size, and each stored block has a 5 byte header:
+   * to pending_buf_size, and each stored blocks has a 5 byte header:
    */
   var max_block_size = 0xffff;
 
@@ -4629,15 +4629,15 @@ function deflate_stored(s, flush) {
       if (s.lookahead === 0) {
         break;
       }
-      /* flush the current block */
+      /* flush the current blocks */
     }
-    //Assert(s->block_start >= 0L, "block gone");
-//    if (s.block_start < 0) throw new Error("block gone");
+    //Assert(s->block_start >= 0L, "blocks gone");
+//    if (s.block_start < 0) throw new Error("blocks gone");
 
     s.strstart += s.lookahead;
     s.lookahead = 0;
 
-    /* Emit a stored block if pending_buf will be full: */
+    /* Emit a stored blocks if pending_buf will be full: */
     var max_start = s.block_start + max_block_size;
 
     if (s.strstart === 0 || s.strstart >= max_start) {
@@ -4692,14 +4692,14 @@ function deflate_stored(s, flush) {
 
 /* ===========================================================================
  * Compress as much as possible from the input stream, return the current
- * block state.
+ * blocks state.
  * This function does not perform lazy evaluation of matches and inserts
  * new strings in the dictionary only for unmatched strings or for short
  * matches. It is used only for the fast compression options.
  */
 function deflate_fast(s, flush) {
   var hash_head;        /* head of the hash chain */
-  var bflush;           /* set if current block must be flushed */
+  var bflush;           /* set if current blocks must be flushed */
 
   for (;;) {
     /* Make sure that we always have enough lookahead, except
@@ -4713,7 +4713,7 @@ function deflate_fast(s, flush) {
         return BS_NEED_MORE;
       }
       if (s.lookahead === 0) {
-        break; /* flush the current block */
+        break; /* flush the current blocks */
       }
     }
 
@@ -4827,11 +4827,11 @@ function deflate_fast(s, flush) {
  */
 function deflate_slow(s, flush) {
   var hash_head;          /* head of hash chain */
-  var bflush;              /* set if current block must be flushed */
+  var bflush;              /* set if current blocks must be flushed */
 
   var max_insert;
 
-  /* Process the input block. */
+  /* Process the input blocks. */
   for (;;) {
     /* Make sure that we always have enough lookahead, except
      * at the end of the input file. We need MAX_MATCH bytes
@@ -4843,7 +4843,7 @@ function deflate_slow(s, flush) {
       if (s.lookahead < MIN_LOOKAHEAD && flush === Z_NO_FLUSH) {
         return BS_NEED_MORE;
       }
-      if (s.lookahead === 0) { break; } /* flush the current block */
+      if (s.lookahead === 0) { break; } /* flush the current blocks */
     }
 
     /* Insert the string window[strstart .. strstart+2] in the
@@ -4988,7 +4988,7 @@ function deflate_slow(s, flush) {
  * deflate switches away from Z_RLE.)
  */
 function deflate_rle(s, flush) {
-  var bflush;            /* set if current block must be flushed */
+  var bflush;            /* set if current blocks must be flushed */
   var prev;              /* byte at distance one to match */
   var scan, strend;      /* scan goes up to strend for length of run */
 
@@ -5004,7 +5004,7 @@ function deflate_rle(s, flush) {
       if (s.lookahead <= MAX_MATCH && flush === Z_NO_FLUSH) {
         return BS_NEED_MORE;
       }
-      if (s.lookahead === 0) { break; } /* flush the current block */
+      if (s.lookahead === 0) { break; } /* flush the current blocks */
     }
 
     /* See how many times the previous byte repeats */
@@ -5083,7 +5083,7 @@ function deflate_rle(s, flush) {
  * (It will be regenerated if this run of deflate switches away from Huffman.)
  */
 function deflate_huff(s, flush) {
-  var bflush;             /* set if current block must be flushed */
+  var bflush;             /* set if current blocks must be flushed */
 
   for (;;) {
     /* Make sure that we have a literal to write. */
@@ -5093,7 +5093,7 @@ function deflate_huff(s, flush) {
         if (flush === Z_NO_FLUSH) {
           return BS_NEED_MORE;
         }
-        break;      /* flush the current block */
+        break;      /* flush the current blocks */
       }
     }
 
@@ -5213,7 +5213,7 @@ function DeflateState() {
    * and move to the first half later to keep a dictionary of at least wSize
    * bytes. With this organization, matches are limited to a distance of
    * wSize-MAX_MATCH bytes, but this ensures that IO is always
-   * performed with a length multiple of the block size.
+   * performed with a length multiple of the blocks size.
    */
 
   this.window_size = 0;
@@ -5242,7 +5242,7 @@ function DeflateState() {
    */
 
   this.block_start = 0;
-  /* Window position at the beginning of the current output block. Gets
+  /* Window position at the beginning of the current output blocks. Gets
    * negative when the window is moved backwards.
    */
 
@@ -5330,12 +5330,12 @@ function DeflateState() {
   /* Size of match buffer for literals/lengths.  There are 4 reasons for
    * limiting lit_bufsize to 64K:
    *   - frequencies can be kept in 16 bit counters
-   *   - if compression is not successful for the first block, all input
-   *     data is still in the window so we can still emit a stored block even
+   *   - if compression is not successful for the first blocks, all input
+   *     data is still in the window so we can still emit a stored blocks even
    *     when input comes from standard input.  (This can also be done for
    *     all blocks if lit_bufsize is not greater than 32K.)
    *   - if compression is not successful for a file smaller than 64K, we can
-   *     even emit a stored file instead of a stored block (saving 5 bytes).
+   *     even emit a stored file instead of a stored blocks (saving 5 bytes).
    *     This is applicable only for zip (not gzip or zlib).
    *   - creating new Huffman trees less frequently may not provide fast
    *     adaptation to changes in the input data statistics. (Take for
@@ -5354,9 +5354,9 @@ function DeflateState() {
    * array would be necessary.
    */
 
-  this.opt_len = 0;       /* bit length of current block with optimal trees */
-  this.static_len = 0;    /* bit length of current block with static trees */
-  this.matches = 0;       /* number of string matches in current block */
+  this.opt_len = 0;       /* bit length of current blocks with optimal trees */
+  this.static_len = 0;    /* bit length of current blocks with static trees */
+  this.matches = 0;       /* number of string matches in current blocks */
   this.insert = 0;        /* bytes at end of window left to insert */
 
 
@@ -5751,7 +5751,7 @@ function deflate(strm, flush) {
     return err(strm, Z_BUF_ERROR);
   }
 
-  /* Start a new block or continue the current one.
+  /* Start a new blocks or continue the current one.
    */
   if (strm.avail_in !== 0 || s.lookahead !== 0 ||
     (flush !== Z_NO_FLUSH && s.status !== FINISH_STATE)) {
@@ -5771,9 +5771,9 @@ function deflate(strm, flush) {
       /* If flush != Z_NO_FLUSH && avail_out == 0, the next call
        * of deflate should use the same flush parameter to make sure
        * that the flush is complete. So we don't have to output an
-       * empty block here, this will be done at next call. This also
+       * empty blocks here, this will be done at next call. This also
        * ensures that for a very small output buffer, we emit at most
-       * one empty block.
+       * one empty blocks.
        */
     }
     if (bstate === BS_BLOCK_DONE) {
@@ -5783,7 +5783,7 @@ function deflate(strm, flush) {
       else if (flush !== Z_BLOCK) { /* FULL_FLUSH or SYNC_FLUSH */
 
         trees._tr_stored_block(s, 0, 0, false);
-        /* For a full flush, this empty block will be recognized
+        /* For a full flush, this empty blocks will be recognized
          * as a special marker by inflate_sync().
          */
         if (flush === Z_FULL_FLUSH) {
@@ -5938,7 +5938,7 @@ var TYPE = 12;      /* i: waiting for type bits, including last-flag bit */
 /*
    Decode literal, length, and distance codes and write out the resulting
    literal and match bytes until either not enough input or output is
-   available, an end-of-block is encountered, or a data error is encountered.
+   available, an end-of-blocks is encountered, or a data error is encountered.
    When large enough input and output buffers are supplied to inflate(), for
    example, a 16K input buffer and a 64K output buffer, more than 95% of the
    inflate execution time is spent in this routine.
@@ -5954,8 +5954,8 @@ var TYPE = 12;      /* i: waiting for type bits, including last-flag bit */
    On return, state.mode is one of:
 
         LEN -- ran out of enough output space or enough available input
-        TYPE -- reached end of block code, inflate() to interpret next block
-        BAD -- error in block data
+        TYPE -- reached end of blocks code, inflate() to interpret next blocks
+        BAD -- error in blocks data
 
    Notes:
 
@@ -6027,7 +6027,7 @@ module.exports = function inflate_fast(strm, start) {
   dmask = (1 << state.distbits) - 1;
 
 
-  /* decode literals and length/distances until end-of-block or not enough
+  /* decode literals and length/distances until end-of-blocks or not enough
      input data or output space */
 
   top:
@@ -6113,7 +6113,7 @@ module.exports = function inflate_fast(strm, start) {
                   break top;
                 }
 
-// (!) This block is disabled in zlib defailts,
+// (!) This blocks is disabled in zlib defailts,
 // don't enable it for binary compatibility
 //#ifdef INFLATE_ALLOW_INVALID_DISTANCE_TOOFAR_ARRR
 //                if (len <= op - whave) {
@@ -6225,8 +6225,8 @@ module.exports = function inflate_fast(strm, start) {
         here = lcode[(here & 0xffff)/*here.val*/ + (hold & ((1 << op) - 1))];
         continue dolen;
       }
-      else if (op & 32) {                     /* end-of-block */
-        //Tracevv((stderr, "inflate:         end of block\n"));
+      else if (op & 32) {                     /* end-of-blocks */
+        //Tracevv((stderr, "inflate:         end of blocks\n"));
         state.mode = TYPE;
         break top;
       }
@@ -6317,11 +6317,11 @@ var    HCRC = 9;       /* i: waiting for header crc (gzip) */
 var    DICTID = 10;    /* i: waiting for dictionary check value */
 var    DICT = 11;      /* waiting for inflateSetDictionary() call */
 var        TYPE = 12;      /* i: waiting for type bits, including last-flag bit */
-var        TYPEDO = 13;    /* i: same, but skip check to exit inflate on new block */
+var        TYPEDO = 13;    /* i: same, but skip check to exit inflate on new blocks */
 var        STORED = 14;    /* i: waiting for stored size (length and complement) */
 var        COPY_ = 15;     /* i/o: same as COPY below, but only first time in */
-var        COPY = 16;      /* i/o: waiting for input or output to copy stored block */
-var        TABLE = 17;     /* i: waiting for dynamic block table lengths */
+var        COPY = 16;      /* i/o: waiting for input or output to copy stored blocks */
+var        TABLE = 17;     /* i: waiting for dynamic blocks table lengths */
 var        LENLENS = 18;   /* i: waiting for code length code lengths */
 var        CODELENS = 19;  /* i: waiting for length/lit and distance code lengths */
 var            LEN_ = 20;      /* i: same as LEN below, but only first time in */
@@ -6361,7 +6361,7 @@ function zswap32(q) {
 
 function InflateState() {
   this.mode = 0;             /* current inflate mode */
-  this.last = false;          /* true if processing last block */
+  this.last = false;          /* true if processing last blocks */
   this.wrap = 0;              /* bit 0 true for zlib, bit 1 true for gzip */
   this.havedict = false;      /* true if dictionary provided */
   this.flags = 0;             /* gzip header method and flags (0 if zlib) */
@@ -6382,7 +6382,7 @@ function InflateState() {
   this.hold = 0;              /* input bit accumulator */
   this.bits = 0;              /* number of bits in "in" */
 
-  /* for string and stored block copying */
+  /* for string and stored blocks copying */
   this.length = 0;            /* literal or length of data to copy */
   this.offset = 0;            /* distance back to copy string from */
 
@@ -7031,14 +7031,14 @@ function inflate(strm, flush) {
       //---//
 
       switch ((hold & 0x03)/*BITS(2)*/) {
-      case 0:                             /* stored block */
-        //Tracev((stderr, "inflate:     stored block%s\n",
+      case 0:                             /* stored blocks */
+        //Tracev((stderr, "inflate:     stored blocks%s\n",
         //        state.last ? " (last)" : ""));
         state.mode = STORED;
         break;
-      case 1:                             /* fixed block */
+      case 1:                             /* fixed blocks */
         fixedtables(state);
-        //Tracev((stderr, "inflate:     fixed codes block%s\n",
+        //Tracev((stderr, "inflate:     fixed codes blocks%s\n",
         //        state.last ? " (last)" : ""));
         state.mode = LEN_;             /* decode codes */
         if (flush === Z_TREES) {
@@ -7049,13 +7049,13 @@ function inflate(strm, flush) {
           break inf_leave;
         }
         break;
-      case 2:                             /* dynamic block */
-        //Tracev((stderr, "inflate:     dynamic codes block%s\n",
+      case 2:                             /* dynamic blocks */
+        //Tracev((stderr, "inflate:     dynamic codes blocks%s\n",
         //        state.last ? " (last)" : ""));
         state.mode = TABLE;
         break;
       case 3:
-        strm.msg = 'invalid block type';
+        strm.msg = 'invalid blocks type';
         state.mode = BAD;
       }
       //--- DROPBITS(2) ---//
@@ -7077,7 +7077,7 @@ function inflate(strm, flush) {
       }
       //===//
       if ((hold & 0xffff) !== ((hold >>> 16) ^ 0xffff)) {
-        strm.msg = 'invalid stored block lengths';
+        strm.msg = 'invalid stored blocks lengths';
         state.mode = BAD;
         break;
       }
@@ -7293,9 +7293,9 @@ function inflate(strm, flush) {
       /* handle error breaks in while */
       if (state.mode === BAD) { break; }
 
-      /* check for end-of-block code (better have one) */
+      /* check for end-of-blocks code (better have one) */
       if (state.lens[256] === 0) {
-        strm.msg = 'invalid code -- missing end-of-block';
+        strm.msg = 'invalid code -- missing end-of-blocks';
         state.mode = BAD;
         break;
       }
@@ -7422,7 +7422,7 @@ function inflate(strm, flush) {
         break;
       }
       if (here_op & 32) {
-        //Tracevv((stderr, "inflate:         end of block\n"));
+        //Tracevv((stderr, "inflate:         end of blocks\n"));
         state.back = -1;
         state.mode = TYPE;
         break;
@@ -7550,7 +7550,7 @@ function inflate(strm, flush) {
             state.mode = BAD;
             break;
           }
-// (!) This block is disabled in zlib defailts,
+// (!) This blocks is disabled in zlib defailts,
 // don't enable it for binary compatibility
 //#ifdef INFLATE_ALLOW_INVALID_DISTANCE_TOOFAR_ARRR
 //          Trace((stderr, "inflate.c too far\n"));
@@ -8006,7 +8006,7 @@ module.exports = function inflate_table(type, lens, lens_index, codes, table, ta
       here_val = base[base_index + work[sym]];
     }
     else {
-      here_op = 32 + 64;         /* end of block */
+      here_op = 32 + 64;         /* end of blocks */
       here_val = 0;
     }
 
@@ -8137,7 +8137,7 @@ function zero(buf) { var len = buf.length; while (--len >= 0) { buf[len] = 0; } 
 var STORED_BLOCK = 0;
 var STATIC_TREES = 1;
 var DYN_TREES    = 2;
-/* The three kinds of block type */
+/* The three kinds of blocks type */
 
 var MIN_MATCH    = 3;
 var MAX_MATCH    = 258;
@@ -8181,7 +8181,7 @@ var MAX_BL_BITS = 7;
 /* Bit length codes must not exceed MAX_BL_BITS bits */
 
 var END_BLOCK   = 256;
-/* end of block literal code */
+/* end of blocks literal code */
 
 var REP_3_6     = 16;
 /* repeat previous bit length 3-6 times (2 bits of repeat count) */
@@ -8353,7 +8353,7 @@ function bi_flush(s) {
 
 /* ===========================================================================
  * Compute the optimal bit lengths for a tree and update the total bit length
- * for the current block.
+ * for the current blocks.
  * IN assertion: the fields freq and dad are set, heap[heap_max] and
  *    above are the tree nodes sorted by increasing frequency.
  * OUT assertions: the field len is set to the optimal bit length, the
@@ -8598,7 +8598,7 @@ function tr_static_init() {
 
 
 /* ===========================================================================
- * Initialize a new block.
+ * Initialize a new blocks.
  */
 function init_block(s) {
   var n; /* iterates over tree elements */
@@ -8630,14 +8630,14 @@ function bi_windup(s)
 }
 
 /* ===========================================================================
- * Copy a stored block, storing first the length and its
+ * Copy a stored blocks, storing first the length and its
  * one's complement if requested.
  */
 function copy_block(s, buf, len, header)
 //DeflateState *s;
 //charf    *buf;    /* the input data */
 //unsigned len;     /* its length */
-//int      header;  /* true if block header must be written */
+//int      header;  /* true if blocks header must be written */
 {
   bi_windup(s);        /* align on byte boundary */
 
@@ -8700,7 +8700,7 @@ function pqdownheap(s, tree, k)
 // var SMALLEST = 1;
 
 /* ===========================================================================
- * Send the block data compressed using the given Huffman trees
+ * Send the blocks data compressed using the given Huffman trees
  */
 function compress_block(s, ltree, dtree)
 //    deflate_state *s;
@@ -8756,7 +8756,7 @@ function compress_block(s, ltree, dtree)
 
 /* ===========================================================================
  * Construct one Huffman tree and assigns the code bit strings and lengths.
- * Update the total bit length for the current block.
+ * Update the total bit length for the current blocks.
  * IN assertion: the field freq is set for all tree elements.
  * OUT assertions: the fields len and code are set to the optimal bit length
  *     and corresponding code. The length opt_len is updated; static_len is
@@ -9027,7 +9027,7 @@ function build_bl_tree(s) {
 
 
 /* ===========================================================================
- * Send the header for a block using dynamic Huffman trees: the counts, the
+ * Send the header for a blocks using dynamic Huffman trees: the counts, the
  * lengths of the bit length codes, the literal tree and the distance tree.
  * IN assertion: lcodes >= 257, dcodes >= 1, blcodes >= 4.
  */
@@ -9124,27 +9124,27 @@ function _tr_init(s)
   s.bi_buf = 0;
   s.bi_valid = 0;
 
-  /* Initialize the first block of the first file: */
+  /* Initialize the first blocks of the first file: */
   init_block(s);
 }
 
 
 /* ===========================================================================
- * Send a stored block
+ * Send a stored blocks
  */
 function _tr_stored_block(s, buf, stored_len, last)
 //DeflateState *s;
-//charf *buf;       /* input block */
-//ulg stored_len;   /* length of input block */
-//int last;         /* one if this is the last block for a file */
+//charf *buf;       /* input blocks */
+//ulg stored_len;   /* length of input blocks */
+//int last;         /* one if this is the last blocks for a file */
 {
-  send_bits(s, (STORED_BLOCK << 1) + (last ? 1 : 0), 3);    /* send block type */
+  send_bits(s, (STORED_BLOCK << 1) + (last ? 1 : 0), 3);    /* send blocks type */
   copy_block(s, buf, stored_len, true); /* with header */
 }
 
 
 /* ===========================================================================
- * Send one empty static block to give enough lookahead for inflate.
+ * Send one empty static blocks to give enough lookahead for inflate.
  * This takes 10 bits, of which 7 may remain in the bit buffer.
  */
 function _tr_align(s) {
@@ -9155,19 +9155,19 @@ function _tr_align(s) {
 
 
 /* ===========================================================================
- * Determine the best encoding for the current block: dynamic trees, static
- * trees or store, and output the encoded block to the zip file.
+ * Determine the best encoding for the current blocks: dynamic trees, static
+ * trees or store, and output the encoded blocks to the zip file.
  */
 function _tr_flush_block(s, buf, stored_len, last)
 //DeflateState *s;
-//charf *buf;       /* input block, or NULL if too old */
-//ulg stored_len;   /* length of input block */
-//int last;         /* one if this is the last block for a file */
+//charf *buf;       /* input blocks, or NULL if too old */
+//ulg stored_len;   /* length of input blocks */
+//int last;         /* one if this is the last blocks for a file */
 {
   var opt_lenb, static_lenb;  /* opt_len and static_len in bytes */
   var max_blindex = 0;        /* index of last bit length code of non zero freq */
 
-  /* Build the Huffman trees unless a stored block is forced */
+  /* Build the Huffman trees unless a stored blocks is forced */
   if (s.level > 0) {
 
     /* Check if the file is binary or text */
@@ -9184,7 +9184,7 @@ function _tr_flush_block(s, buf, stored_len, last)
     // Tracev((stderr, "\ndist data: dyn %ld, stat %ld", s->opt_len,
     //        s->static_len));
     /* At this point, opt_len and static_len are the total bit lengths of
-     * the compressed block data, excluding the tree representations.
+     * the compressed blocks data, excluding the tree representations.
      */
 
     /* Build the bit length tree for the above two trees, and get the index
@@ -9192,7 +9192,7 @@ function _tr_flush_block(s, buf, stored_len, last)
      */
     max_blindex = build_bl_tree(s);
 
-    /* Determine the best encoding. Compute the block lengths in bytes. */
+    /* Determine the best encoding. Compute the blocks lengths in bytes. */
     opt_lenb = (s.opt_len + 3 + 7) >>> 3;
     static_lenb = (s.static_len + 3 + 7) >>> 3;
 
@@ -9204,7 +9204,7 @@ function _tr_flush_block(s, buf, stored_len, last)
 
   } else {
     // Assert(buf != (char*)0, "lost buf");
-    opt_lenb = static_lenb = stored_len + 5; /* force a stored block */
+    opt_lenb = static_lenb = stored_len + 5; /* force a stored blocks */
   }
 
   if ((stored_len + 4 <= opt_lenb) && (buf !== -1)) {
@@ -9212,9 +9212,9 @@ function _tr_flush_block(s, buf, stored_len, last)
 
     /* The test buf != NULL is only necessary if LIT_BUFSIZE > WSIZE.
      * Otherwise we can't have processed more than WSIZE input bytes since
-     * the last block flush, because compression would have been
+     * the last blocks flush, because compression would have been
      * successful. If LIT_BUFSIZE <= WSIZE, it is never too late to
-     * transform a block into a stored block.
+     * transform a blocks into a stored blocks.
      */
     _tr_stored_block(s, buf, stored_len, last);
 
@@ -9243,7 +9243,7 @@ function _tr_flush_block(s, buf, stored_len, last)
 
 /* ===========================================================================
  * Save the match info and tally the frequency counts. Return true if
- * the current block must be flushed.
+ * the current blocks must be flushed.
  */
 function _tr_tally(s, dist, lc)
 //    deflate_state *s;
@@ -9273,11 +9273,11 @@ function _tr_tally(s, dist, lc)
     s.dyn_dtree[d_code(dist) * 2]/*.Freq*/++;
   }
 
-// (!) This block is disabled in zlib defailts,
+// (!) This blocks is disabled in zlib defailts,
 // don't enable it for binary compatibility
 
 //#ifdef TRUNCATE_BLOCK
-//  /* Try to guess if it is profitable to stop the current block here */
+//  /* Try to guess if it is profitable to stop the current blocks here */
 //  if ((s.last_lit & 0x1fff) === 0 && s.level > 2) {
 //    /* Compute an upper bound for the compressed length */
 //    out_length = s.last_lit*8;

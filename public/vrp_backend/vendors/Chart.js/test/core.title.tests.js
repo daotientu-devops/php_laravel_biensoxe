@@ -1,6 +1,6 @@
 // Test the rectangle element
 
-describe('Title block tests', function() {
+describe('Title blocks tests', function() {
 	it('Should be constructed', function() {
 		var title = new Chart.Title({});
 		expect(title).not.toBe(undefined);

@@ -42,9 +42,9 @@ PR['registerLangHandler'](
         ],
         [
          // A comment is either a line comment that starts with two dashes, or
-         // two dashes preceding a long bracketed block.
+         // two dashes preceding a long bracketed blocks.
          [PR['PR_COMMENT'], /^--(?:\[(=*)\[[\s\S]*?(?:\]\1\]|$)|[^\r\n]*)/],
-         // A long bracketed block not preceded by -- is a string.
+         // A long bracketed blocks not preceded by -- is a string.
          [PR['PR_STRING'],  /^\[(=*)\[[\s\S]*?(?:\]\1\]|$)/],
          [PR['PR_KEYWORD'], /^(?:and|break|do|else|elseif|end|false|for|function|if|in|local|nil|not|or|repeat|return|then|true|until|while)\b/, null],
          // A number is a hex integer literal, a decimal real literal, or in

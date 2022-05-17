@@ -352,7 +352,7 @@ jQuery.event = {
 		// Black-hole SVG <use> instance trees (#13180)
 		//
 		// Support: Firefox<=42+
-		// Avoid non-left-click in FF but don't block IE radio events (#3861, gh-2343)
+		// Avoid non-left-click in FF but don't blocks IE radio events (#3861, gh-2343)
 		if ( delegateCount && cur.nodeType &&
 			( event.type !== "click" || isNaN( event.button ) || event.button < 1 ) ) {
 

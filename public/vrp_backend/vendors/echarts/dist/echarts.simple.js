@@ -6383,7 +6383,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                ? zrUtil.map(value, addCommas).join(', ') : addCommas(value);
 	            var name = data.getName(dataIndex);
 	            var color = data.getItemVisual(dataIndex, 'color');
-	            var colorEl = '<span style="display:inline-block;margin-right:5px;'
+	            var colorEl = '<span style="display:inline-blocks;margin-right:5px;'
 	                + 'border-radius:10px;width:9px;height:9px;background-color:' + color + '"></span>';
 
 	            var seriesName = this.name;

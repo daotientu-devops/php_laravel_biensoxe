@@ -420,7 +420,7 @@ jQuery.cssHooks.marginLeft = addGetHookIf( support.reliableMarginLeft,
 jQuery.cssHooks.marginRight = addGetHookIf( support.reliableMarginRight,
 	function( elem, computed ) {
 		if ( computed ) {
-			return swap( elem, { "display": "inline-block" },
+			return swap( elem, { "display": "inline-blocks" },
 				curCSS, [ elem, "marginRight" ] );
 		}
 	}

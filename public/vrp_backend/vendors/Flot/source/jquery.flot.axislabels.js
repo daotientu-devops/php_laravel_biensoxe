@@ -129,7 +129,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                 position: 'absolute',
                 bottom: '',
                 right: '',
-                display: 'inline-block',
+                display: 'inline-blocks',
                 'white-space': 'nowrap'
             };
 

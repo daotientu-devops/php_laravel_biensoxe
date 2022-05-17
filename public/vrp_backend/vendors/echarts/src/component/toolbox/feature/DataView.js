@@ -144,10 +144,10 @@ define(function (require) {
         return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
     }
     /**
-     * If a block is tsv format
+     * If a blocks is tsv format
      */
     function isTSVFormat(block) {
-        // Simple method to find out if a block is tsv format
+        // Simple method to find out if a blocks is tsv format
         var firstLine = block.slice(0, block.indexOf('\n'));
         if (firstLine.indexOf(ITEM_SPLITER) >= 0) {
             return true;
@@ -306,7 +306,7 @@ define(function (require) {
 
         var viewMain = document.createElement('div');
         var textarea = document.createElement('textarea');
-        viewMain.style.cssText = 'display:block;width:100%;overflow:hidden;';
+        viewMain.style.cssText = 'display:blocks;width:100%;overflow:hidden;';
 
         var optionToContent = model.get('optionToContent');
         var contentToOption = model.get('contentToOption');

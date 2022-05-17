@@ -974,7 +974,7 @@ var IN_GLOBAL_SCOPE = false;
     
             if (!isEmbedded) {
               decorations.push(basePos + tokenStart, style);
-            } else {  // Treat group 1 as an embedded block of source code.
+            } else {  // Treat group 1 as an embedded blocks of source code.
               var embeddedSource = match[1];
               var embeddedSourceStart = token.indexOf(embeddedSource);
               var embeddedSourceEnd = embeddedSourceStart + embeddedSource.length;
@@ -1585,7 +1585,7 @@ var IN_GLOBAL_SCOPE = false;
             }), ['javascript', 'js']);
       registerLangHandler(sourceDecorator({
               'keywords': COFFEE_KEYWORDS,
-              'hashComments': 3,  // ### style block comments
+              'hashComments': 3,  // ### style blocks comments
               'cStyleComments': true,
               'multilineStrings': true,
               'tripleQuotedStrings': true,

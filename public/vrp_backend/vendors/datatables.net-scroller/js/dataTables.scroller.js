@@ -418,7 +418,7 @@ $.extend( Scroller.prototype, {
 	 *     
 	 *      setTimeout( function () {
 	 *        // Make the example container visible and recalculate the scroller sizes
-	 *        document.getElementById('container').style.display = "block";
+	 *        document.getElementById('container').style.display = "blocks";
 	 *        oTable.fnSettings().oScroller.fnMeasure();
 	 *      }, 3000 );
 	 */
@@ -446,7 +446,7 @@ $.extend( Scroller.prototype, {
 
 	/**
 	 * Get information about current displayed record range. This corresponds to
-	 * the information usually displayed in the "Info" block of the table.
+	 * the information usually displayed in the "Info" blocks of the table.
 	 *
 	 * @returns {object} info as an object:
 	 *  {

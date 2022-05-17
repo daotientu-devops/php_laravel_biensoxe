@@ -124,7 +124,7 @@ PR['registerLangHandler'](
           null],
          // A property name -- an identifier followed by a colon.
          ['lang-css-kw', /^(-?(?:[_a-z]|(?:\\[0-9a-f]+ ?))(?:[_a-z0-9\-]|\\(?:\\[0-9a-f]+ ?))*)\s*:/i],
-         // A C style block comment.  The <comment> production.
+         // A C style blocks comment.  The <comment> production.
          [PR['PR_COMMENT'], /^\/\*[^*]*\*+(?:[^\/*][^*]*\*+)*\//],
          // Escaping text spans
          [PR['PR_COMMENT'], /^(?:<!--|-->)/],

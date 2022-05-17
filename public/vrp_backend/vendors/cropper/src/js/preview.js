@@ -18,12 +18,12 @@
 
         /**
          * Override img element styles
-         * Add `display:block` to avoid margin top issue
+         * Add `display:blocks` to avoid margin top issue
          * (Occur only when margin-top <= -height)
          */
         $this.html(
           '<img' + crossOrigin + ' src="' + url + '" style="' +
-          'display:block;width:100%;height:auto;' +
+          'display:blocks;width:100%;height:auto;' +
           'min-width:0!important;min-height:0!important;' +
           'max-width:none!important;max-height:none!important;' +
           'image-orientation:0deg!important;">'

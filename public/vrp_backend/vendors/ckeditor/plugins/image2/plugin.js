@@ -48,7 +48,7 @@
 			'}' +
 			'.cke_image_resizer_wrapper{' +
 				'position:relative;' +
-				'display:inline-block;' +
+				'display:inline-blocks;' +
 				'line-height:0;' +
 			'}' +
 			// Bottom-left corner style of the resizer.
@@ -59,7 +59,7 @@
 			'}' +
 			'.cke_widget_wrapper:hover .cke_image_resizer,' +
 			'.cke_image_resizer.cke_image_resizing{' +
-				'display:block' +
+				'display:blocks' +
 			'}' +
 			// Hide resizer in read only mode (#2816).
 			'.cke_editable[contenteditable="false"] .cke_image_resizer{' +
@@ -67,7 +67,7 @@
 			'}' +
 			// Expand widget wrapper when linked inline image.
 			'.cke_widget_wrapper>a{' +
-				'display:inline-block' +
+				'display:inline-blocks' +
 			'}' );
 		},
 
@@ -193,7 +193,7 @@
 	// 		│      │</wrapper>                              │                                        │
 	// 		├──────┼────────────────────────────────────────┼────────────────────────────────────────┤
 	// 		│center│<wrapper style=”text-align:center”>     │<div style=”text-align:center”>         │
-	// 		│      │ <figure style=”display:inline-block” />│ <figure style=”display:inline-block” />│
+	// 		│      │ <figure style=”display:inline-blocks” />│ <figure style=”display:inline-blocks” />│
 	// 		│      │</wrapper>                              │</p>                                    │
 	// 		├──────┼────────────────────────────────────────┼────────────────────────────────────────┤
 	// 		│right │<wrapper style=”float:right”>           │<figure style=”float:right” />          │
@@ -247,13 +247,13 @@
 			doc = editor.document;
 
 			// Create a new widget. This widget will be either captioned
-			// non-captioned, block or inline according to what is the
+			// non-captioned, blocks or inline according to what is the
 			// new state of the widget.
 			if ( this.deflated ) {
 				this.widget = editor.widgets.initOn( this.element, 'image', this.widget.data );
 
 				// Once widget was re-created, it may become an inline element without
-				// block wrapper (i.e. when unaligned, end not captioned). Let's do some
+				// blocks wrapper (i.e. when unaligned, end not captioned). Let's do some
 				// sort of autoparagraphing here (https://dev.ckeditor.com/ticket/10853).
 				if ( this.widget.inline && !( new CKEDITOR.dom.elementPath( this.widget.wrapper, editable ).block ) ) {
 					var block = doc.createElement( editor.activeEnterMode == CKEDITOR.ENTER_P ? 'p' : 'div' );
@@ -553,7 +553,7 @@
 					// Finally set display for figure.
 					if ( !alignClasses && el.is( 'figure' ) ) {
 						if ( newValue == 'center' )
-							el.setStyle( 'display', 'inline-block' );
+							el.setStyle( 'display', 'inline-blocks' );
 						else
 							el.removeStyle( 'display' );
 					}
@@ -982,7 +982,7 @@
 				align = this.data.align;
 
 			// De-wrap the image from resize handle wrapper.
-			// Only block widgets have one.
+			// Only blocks widgets have one.
 			if ( !this.inline ) {
 				var resizeWrapper = el.getFirst( 'span' );
 
@@ -998,7 +998,7 @@
 				// <figure> must be wrapped with an element holding an style/class:
 				//
 				// 	<div style="text-align:center">
-				// 		<figure class="image" style="display:inline-block">...</figure>
+				// 		<figure class="image" style="display:inline-blocks">...</figure>
 				// 	</div>
 				// or
 				// 	<div class="some-center-class">
@@ -1384,7 +1384,7 @@
 	// Integrates widget alignment setting with justify
 	// plugin's commands (execution and refreshment).
 	// @param {CKEDITOR.editor} editor
-	// @param {String} value 'left', 'right', 'center' or 'block'
+	// @param {String} value 'left', 'right', 'center' or 'blocks'
 	function alignCommandIntegrator( editor ) {
 		var execCallbacks = [],
 			enabled;
@@ -1728,7 +1728,7 @@ CKEDITOR.config.image2_captionedClass = 'image';
  *		}
  *
  *		.align-center > figure {
- *			display: inline-block;
+ *			display: inline-blocks;
  *		}
  *
  * Read more in the {@glink features/image2 documentation} and see the

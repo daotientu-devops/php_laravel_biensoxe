@@ -147,7 +147,7 @@
 	           blob = new Blob([result], { type: 'application/pdf' });
 	       }
 	       catch (e) {
-	           // Old browser which can't handle it without making it an byte array (ie10) 
+	           // Old browser which can't handle it without making it an byte array (ie10)
 	           if (e.name == "InvalidStateError") {
 	               var byteArray = new Uint8Array(result);
 	               blob = new Blob([byteArray.buffer], { type: 'application/pdf' });
@@ -1969,7 +1969,7 @@
 /* 5 */
 /***/ function(module, exports) {
 
-	
+
 	/**
 	 * isArray
 	 */
@@ -2101,7 +2101,7 @@
 		this.pdfKitDoc = new PdfKit({ size: [ pageSize.width, pageSize.height ], compress: false});
 		this.pdfKitDoc.info.Producer = 'pdfmake';
 		this.pdfKitDoc.info.Creator = 'pdfmake';
-		
+
 		// pdf kit maintains the uppercase fieldnames from pdf spec
 		// to keep the pdfmake api consistent, the info field are defined lowercase
 		if(docDefinition.info){
@@ -2112,7 +2112,7 @@
 			this.pdfKitDoc.info.Subject = docDefinition.info.subject ? docDefinition.info.subject : null;
 			this.pdfKitDoc.info.Keywords = docDefinition.info.keywords ? docDefinition.info.keywords : null;
 		}
-		
+
 		this.fontProvider = new FontProvider(this.fontDescriptors, this.pdfKitDoc);
 
 	  docDefinition.images = docDefinition.images || {};
@@ -15642,7 +15642,7 @@
 		} else if (typeof node == 'string' || node instanceof String) {
 			node = { text: node };
 		}
-		
+
 		// Deal with empty nodes to prevent crash in getNodeMargin
 		if (Object.keys(node).length === 0) {
 			// A warning could be logged: console.warn('pdfmake: Empty node, ignoring it');
@@ -15742,7 +15742,7 @@
 					margin = convertMargin(flattenedStyleArray.margin);
 				}
 			}
-			
+
 			margin = processSingleMargins(node, margin);
 
 			if(node.margin){
@@ -17293,8 +17293,8 @@
 		// N1+(k-5) points for each consecutive row of k same-colored modules,
 		// where k >= 5. no overlapping row counts.
 		var PENALTY_CONSECUTIVE = 3;
-		// N2 points for each 2x2 block of same-colored modules.
-		// overlapping block does count.
+		// N2 points for each 2x2 blocks of same-colored modules.
+		// overlapping blocks does count.
 		var PENALTY_TWOBYTWO = 3;
 		// N3 points for each pattern with >4W:1B:1W:3B:1W:1B or
 		// 1B:1W:3B:1W:1B:>4W, or their multiples (e.g. highly unlikely,
@@ -17468,7 +17468,7 @@
 	//   modules, so it is better not to alter this value unless you know what
 	//   you're doing.
 	function buildCanvas(data, options) {
-	   
+
 	    var canvas = [];
 	    var background = data.background || '#fff';
 	    var foreground = data.foreground || '#000';
@@ -17477,12 +17477,12 @@
 		var n = matrix.length;
 		var modSize = Math.floor( options.fit ? options.fit/n : 5 );
 		var size = n * modSize;
-		
+
 	    canvas.push({
 	      type: 'rect',
 	      x: 0, y: 0, w: size, h: size, lineWidth: 0, color: background
 	    });
-	    
+
 		for (var i = 0; i < n; ++i) {
 			for (var j = 0; j < n; ++j) {
 	            if(matrix[i][j]) {
@@ -17498,12 +17498,12 @@
 	            }
 	        }
 	    }
-	    
+
 	    return {
 	        canvas: canvas,
 	        size: size
 	    };
-			
+
 	}
 
 	function measure(node) {
@@ -17810,7 +17810,7 @@
 	* - repeatable fragments (like table-headers, which are repeated everytime
 	*                         a page-break occurs)
 	* - transactions (used for unbreakable-blocks when we want to make sure
-	*                 whole block will be rendered on the same page)
+	*                 whole blocks will be rendered on the same page)
 	*/
 	function PageElementWriter(context, tracker) {
 		this.transactionLevel = 0;
@@ -17858,9 +17858,9 @@
 	};
 
 	PageElementWriter.prototype.moveToNextPage = function(pageOrientation) {
-		
+
 		var nextPage = this.writer.context.moveToNextPage(pageOrientation);
-		
+
 	  if (nextPage.newPageCreated) {
 			this.repeatables.forEach(function(rep) {
 				this.writer.addFragment(rep, true);
@@ -22565,7 +22565,7 @@
 	function Zlib(mode) {
 	  if (mode < exports.DEFLATE || mode > exports.UNZIP)
 	    throw new TypeError("Bad argument");
-	    
+
 	  this.mode = mode;
 	  this.init_done = false;
 	  this.write_in_progress = false;
@@ -22583,18 +22583,18 @@
 	  this.memLevel = memLevel;
 	  this.strategy = strategy;
 	  // dictionary not supported.
-	  
+
 	  if (this.mode === exports.GZIP || this.mode === exports.GUNZIP)
 	    this.windowBits += 16;
-	    
+
 	  if (this.mode === exports.UNZIP)
 	    this.windowBits += 32;
-	    
+
 	  if (this.mode === exports.DEFLATERAW || this.mode === exports.INFLATERAW)
 	    this.windowBits = -this.windowBits;
-	    
+
 	  this.strm = new zstream();
-	  
+
 	  switch (this.mode) {
 	    case exports.DEFLATE:
 	    case exports.GZIP:
@@ -22620,12 +22620,12 @@
 	    default:
 	      throw new Error("Unknown mode " + this.mode);
 	  }
-	  
+
 	  if (status !== exports.Z_OK) {
 	    this._error(status);
 	    return;
 	  }
-	  
+
 	  this.write_in_progress = false;
 	  this.init_done = true;
 	};
@@ -22637,31 +22637,31 @@
 	Zlib.prototype._writeCheck = function() {
 	  if (!this.init_done)
 	    throw new Error("write before init");
-	    
+
 	  if (this.mode === exports.NONE)
 	    throw new Error("already finalized");
-	    
+
 	  if (this.write_in_progress)
 	    throw new Error("write already in progress");
-	    
+
 	  if (this.pending_close)
 	    throw new Error("close is pending");
 	};
 
-	Zlib.prototype.write = function(flush, input, in_off, in_len, out, out_off, out_len) {    
+	Zlib.prototype.write = function(flush, input, in_off, in_len, out, out_off, out_len) {
 	  this._writeCheck();
 	  this.write_in_progress = true;
-	  
+
 	  var self = this;
 	  process.nextTick(function() {
 	    self.write_in_progress = false;
 	    var res = self._write(flush, input, in_off, in_len, out, out_off, out_len);
 	    self.callback(res[0], res[1]);
-	    
+
 	    if (self.pending_close)
 	      self.close();
 	  });
-	  
+
 	  return this;
 	};
 
@@ -22679,7 +22679,7 @@
 
 	Zlib.prototype._write = function(flush, input, in_off, in_len, out, out_off, out_len) {
 	  this.write_in_progress = true;
-	  
+
 	  if (flush !== exports.Z_NO_FLUSH &&
 	      flush !== exports.Z_PARTIAL_FLUSH &&
 	      flush !== exports.Z_SYNC_FLUSH &&
@@ -22688,18 +22688,18 @@
 	      flush !== exports.Z_BLOCK) {
 	    throw new Error("Invalid flush value");
 	  }
-	  
+
 	  if (input == null) {
 	    input = new Buffer(0);
 	    in_len = 0;
 	    in_off = 0;
 	  }
-	  
+
 	  if (out._set)
 	    out.set = out._set;
 	  else
 	    out.set = bufferSet;
-	  
+
 	  var strm = this.strm;
 	  strm.avail_in = in_len;
 	  strm.input = input;
@@ -22707,7 +22707,7 @@
 	  strm.avail_out = out_len;
 	  strm.output = out;
 	  strm.next_out = out_off;
-	  
+
 	  switch (this.mode) {
 	    case exports.DEFLATE:
 	    case exports.GZIP:
@@ -22723,11 +22723,11 @@
 	    default:
 	      throw new Error("Unknown mode " + this.mode);
 	  }
-	  
+
 	  if (status !== exports.Z_STREAM_END && status !== exports.Z_OK) {
 	    this._error(status);
 	  }
-	  
+
 	  this.write_in_progress = false;
 	  return [strm.avail_in, strm.avail_out];
 	};
@@ -22737,15 +22737,15 @@
 	    this.pending_close = true;
 	    return;
 	  }
-	  
+
 	  this.pending_close = false;
-	  
+
 	  if (this.mode === exports.DEFLATE || this.mode === exports.GZIP || this.mode === exports.DEFLATERAW) {
 	    zlib_deflate.deflateEnd(this.strm);
 	  } else {
 	    zlib_inflate.inflateEnd(this.strm);
 	  }
-	  
+
 	  this.mode = exports.NONE;
 	};
 
@@ -22760,7 +22760,7 @@
 	      var status = zlib_inflate.inflateReset(this.strm);
 	      break;
 	  }
-	  
+
 	  if (status !== exports.Z_OK) {
 	    this._error(status);
 	  }
@@ -22768,7 +22768,7 @@
 
 	Zlib.prototype._error = function(status) {
 	  this.onerror(msg[status] + ': ' + this.strm.msg, status);
-	  
+
 	  this.write_in_progress = false;
 	  if (this.pending_close)
 	    this.close();
@@ -22934,8 +22934,8 @@
 	var BUSY_STATE = 113;
 	var FINISH_STATE = 666;
 
-	var BS_NEED_MORE      = 1; /* block not completed, need more input or more output */
-	var BS_BLOCK_DONE     = 2; /* block flush performed */
+	var BS_NEED_MORE      = 1; /* blocks not completed, need more input or more output */
+	var BS_BLOCK_DONE     = 2; /* blocks flush performed */
 	var BS_FINISH_STARTED = 3; /* finish started, need only more output at next deflate */
 	var BS_FINISH_DONE    = 4; /* finish done, accept no more input or output */
 
@@ -23168,7 +23168,7 @@
 	  do {
 	    more = s.window_size - s.lookahead - s.strstart;
 
-	    // JS ints have 32 bit, block below not needed
+	    // JS ints have 32 bit, blocks below not needed
 	    /* Deal with !@#$% 64K limit: */
 	    //if (sizeof(int) <= 2) {
 	    //    if (more == 0 && s->strstart == 0 && s->lookahead == 0) {
@@ -23308,7 +23308,7 @@
 
 	/* ===========================================================================
 	 * Copy without compression as much as possible from the input stream, return
-	 * the current block state.
+	 * the current blocks state.
 	 * This function does not insert new strings in the dictionary since
 	 * uncompressible data is probably not useful. This function is used
 	 * only for the level=0 compression option.
@@ -23317,7 +23317,7 @@
 	 */
 	function deflate_stored(s, flush) {
 	  /* Stored blocks are limited to 0xffff bytes, pending_buf is limited
-	   * to pending_buf_size, and each stored block has a 5 byte header:
+	   * to pending_buf_size, and each stored blocks has a 5 byte header:
 	   */
 	  var max_block_size = 0xffff;
 
@@ -23345,15 +23345,15 @@
 	      if (s.lookahead === 0) {
 	        break;
 	      }
-	      /* flush the current block */
+	      /* flush the current blocks */
 	    }
-	    //Assert(s->block_start >= 0L, "block gone");
-	//    if (s.block_start < 0) throw new Error("block gone");
+	    //Assert(s->block_start >= 0L, "blocks gone");
+	//    if (s.block_start < 0) throw new Error("blocks gone");
 
 	    s.strstart += s.lookahead;
 	    s.lookahead = 0;
 
-	    /* Emit a stored block if pending_buf will be full: */
+	    /* Emit a stored blocks if pending_buf will be full: */
 	    var max_start = s.block_start + max_block_size;
 
 	    if (s.strstart === 0 || s.strstart >= max_start) {
@@ -23408,14 +23408,14 @@
 
 	/* ===========================================================================
 	 * Compress as much as possible from the input stream, return the current
-	 * block state.
+	 * blocks state.
 	 * This function does not perform lazy evaluation of matches and inserts
 	 * new strings in the dictionary only for unmatched strings or for short
 	 * matches. It is used only for the fast compression options.
 	 */
 	function deflate_fast(s, flush) {
 	  var hash_head;        /* head of the hash chain */
-	  var bflush;           /* set if current block must be flushed */
+	  var bflush;           /* set if current blocks must be flushed */
 
 	  for (;;) {
 	    /* Make sure that we always have enough lookahead, except
@@ -23429,7 +23429,7 @@
 	        return BS_NEED_MORE;
 	      }
 	      if (s.lookahead === 0) {
-	        break; /* flush the current block */
+	        break; /* flush the current blocks */
 	      }
 	    }
 
@@ -23543,11 +23543,11 @@
 	 */
 	function deflate_slow(s, flush) {
 	  var hash_head;          /* head of hash chain */
-	  var bflush;              /* set if current block must be flushed */
+	  var bflush;              /* set if current blocks must be flushed */
 
 	  var max_insert;
 
-	  /* Process the input block. */
+	  /* Process the input blocks. */
 	  for (;;) {
 	    /* Make sure that we always have enough lookahead, except
 	     * at the end of the input file. We need MAX_MATCH bytes
@@ -23559,7 +23559,7 @@
 	      if (s.lookahead < MIN_LOOKAHEAD && flush === Z_NO_FLUSH) {
 	        return BS_NEED_MORE;
 	      }
-	      if (s.lookahead === 0) { break; } /* flush the current block */
+	      if (s.lookahead === 0) { break; } /* flush the current blocks */
 	    }
 
 	    /* Insert the string window[strstart .. strstart+2] in the
@@ -23704,7 +23704,7 @@
 	 * deflate switches away from Z_RLE.)
 	 */
 	function deflate_rle(s, flush) {
-	  var bflush;            /* set if current block must be flushed */
+	  var bflush;            /* set if current blocks must be flushed */
 	  var prev;              /* byte at distance one to match */
 	  var scan, strend;      /* scan goes up to strend for length of run */
 
@@ -23720,7 +23720,7 @@
 	      if (s.lookahead <= MAX_MATCH && flush === Z_NO_FLUSH) {
 	        return BS_NEED_MORE;
 	      }
-	      if (s.lookahead === 0) { break; } /* flush the current block */
+	      if (s.lookahead === 0) { break; } /* flush the current blocks */
 	    }
 
 	    /* See how many times the previous byte repeats */
@@ -23799,7 +23799,7 @@
 	 * (It will be regenerated if this run of deflate switches away from Huffman.)
 	 */
 	function deflate_huff(s, flush) {
-	  var bflush;             /* set if current block must be flushed */
+	  var bflush;             /* set if current blocks must be flushed */
 
 	  for (;;) {
 	    /* Make sure that we have a literal to write. */
@@ -23809,7 +23809,7 @@
 	        if (flush === Z_NO_FLUSH) {
 	          return BS_NEED_MORE;
 	        }
-	        break;      /* flush the current block */
+	        break;      /* flush the current blocks */
 	      }
 	    }
 
@@ -23929,7 +23929,7 @@
 	   * and move to the first half later to keep a dictionary of at least wSize
 	   * bytes. With this organization, matches are limited to a distance of
 	   * wSize-MAX_MATCH bytes, but this ensures that IO is always
-	   * performed with a length multiple of the block size.
+	   * performed with a length multiple of the blocks size.
 	   */
 
 	  this.window_size = 0;
@@ -23958,7 +23958,7 @@
 	   */
 
 	  this.block_start = 0;
-	  /* Window position at the beginning of the current output block. Gets
+	  /* Window position at the beginning of the current output blocks. Gets
 	   * negative when the window is moved backwards.
 	   */
 
@@ -24046,12 +24046,12 @@
 	  /* Size of match buffer for literals/lengths.  There are 4 reasons for
 	   * limiting lit_bufsize to 64K:
 	   *   - frequencies can be kept in 16 bit counters
-	   *   - if compression is not successful for the first block, all input
-	   *     data is still in the window so we can still emit a stored block even
+	   *   - if compression is not successful for the first blocks, all input
+	   *     data is still in the window so we can still emit a stored blocks even
 	   *     when input comes from standard input.  (This can also be done for
 	   *     all blocks if lit_bufsize is not greater than 32K.)
 	   *   - if compression is not successful for a file smaller than 64K, we can
-	   *     even emit a stored file instead of a stored block (saving 5 bytes).
+	   *     even emit a stored file instead of a stored blocks (saving 5 bytes).
 	   *     This is applicable only for zip (not gzip or zlib).
 	   *   - creating new Huffman trees less frequently may not provide fast
 	   *     adaptation to changes in the input data statistics. (Take for
@@ -24070,9 +24070,9 @@
 	   * array would be necessary.
 	   */
 
-	  this.opt_len = 0;       /* bit length of current block with optimal trees */
-	  this.static_len = 0;    /* bit length of current block with static trees */
-	  this.matches = 0;       /* number of string matches in current block */
+	  this.opt_len = 0;       /* bit length of current blocks with optimal trees */
+	  this.static_len = 0;    /* bit length of current blocks with static trees */
+	  this.matches = 0;       /* number of string matches in current blocks */
 	  this.insert = 0;        /* bytes at end of window left to insert */
 
 
@@ -24467,7 +24467,7 @@
 	    return err(strm, Z_BUF_ERROR);
 	  }
 
-	  /* Start a new block or continue the current one.
+	  /* Start a new blocks or continue the current one.
 	   */
 	  if (strm.avail_in !== 0 || s.lookahead !== 0 ||
 	    (flush !== Z_NO_FLUSH && s.status !== FINISH_STATE)) {
@@ -24487,9 +24487,9 @@
 	      /* If flush != Z_NO_FLUSH && avail_out == 0, the next call
 	       * of deflate should use the same flush parameter to make sure
 	       * that the flush is complete. So we don't have to output an
-	       * empty block here, this will be done at next call. This also
+	       * empty blocks here, this will be done at next call. This also
 	       * ensures that for a very small output buffer, we emit at most
-	       * one empty block.
+	       * one empty blocks.
 	       */
 	    }
 	    if (bstate === BS_BLOCK_DONE) {
@@ -24499,7 +24499,7 @@
 	      else if (flush !== Z_BLOCK) { /* FULL_FLUSH or SYNC_FLUSH */
 
 	        trees._tr_stored_block(s, 0, 0, false);
-	        /* For a full flush, this empty block will be recognized
+	        /* For a full flush, this empty blocks will be recognized
 	         * as a special marker by inflate_sync().
 	         */
 	        if (flush === Z_FULL_FLUSH) {
@@ -24746,7 +24746,7 @@
 	var STORED_BLOCK = 0;
 	var STATIC_TREES = 1;
 	var DYN_TREES    = 2;
-	/* The three kinds of block type */
+	/* The three kinds of blocks type */
 
 	var MIN_MATCH    = 3;
 	var MAX_MATCH    = 258;
@@ -24790,7 +24790,7 @@
 	/* Bit length codes must not exceed MAX_BL_BITS bits */
 
 	var END_BLOCK   = 256;
-	/* end of block literal code */
+	/* end of blocks literal code */
 
 	var REP_3_6     = 16;
 	/* repeat previous bit length 3-6 times (2 bits of repeat count) */
@@ -24959,7 +24959,7 @@
 
 	/* ===========================================================================
 	 * Compute the optimal bit lengths for a tree and update the total bit length
-	 * for the current block.
+	 * for the current blocks.
 	 * IN assertion: the fields freq and dad are set, heap[heap_max] and
 	 *    above are the tree nodes sorted by increasing frequency.
 	 * OUT assertions: the field len is set to the optimal bit length, the
@@ -25204,7 +25204,7 @@
 
 
 	/* ===========================================================================
-	 * Initialize a new block.
+	 * Initialize a new blocks.
 	 */
 	function init_block(s) {
 	  var n; /* iterates over tree elements */
@@ -25236,14 +25236,14 @@
 	}
 
 	/* ===========================================================================
-	 * Copy a stored block, storing first the length and its
+	 * Copy a stored blocks, storing first the length and its
 	 * one's complement if requested.
 	 */
 	function copy_block(s, buf, len, header)
 	//DeflateState *s;
 	//charf    *buf;    /* the input data */
 	//unsigned len;     /* its length */
-	//int      header;  /* true if block header must be written */
+	//int      header;  /* true if blocks header must be written */
 	{
 	  bi_windup(s);        /* align on byte boundary */
 
@@ -25306,7 +25306,7 @@
 	// var SMALLEST = 1;
 
 	/* ===========================================================================
-	 * Send the block data compressed using the given Huffman trees
+	 * Send the blocks data compressed using the given Huffman trees
 	 */
 	function compress_block(s, ltree, dtree)
 	//    deflate_state *s;
@@ -25362,7 +25362,7 @@
 
 	/* ===========================================================================
 	 * Construct one Huffman tree and assigns the code bit strings and lengths.
-	 * Update the total bit length for the current block.
+	 * Update the total bit length for the current blocks.
 	 * IN assertion: the field freq is set for all tree elements.
 	 * OUT assertions: the fields len and code are set to the optimal bit length
 	 *     and corresponding code. The length opt_len is updated; static_len is
@@ -25633,7 +25633,7 @@
 
 
 	/* ===========================================================================
-	 * Send the header for a block using dynamic Huffman trees: the counts, the
+	 * Send the header for a blocks using dynamic Huffman trees: the counts, the
 	 * lengths of the bit length codes, the literal tree and the distance tree.
 	 * IN assertion: lcodes >= 257, dcodes >= 1, blcodes >= 4.
 	 */
@@ -25730,27 +25730,27 @@
 	  s.bi_buf = 0;
 	  s.bi_valid = 0;
 
-	  /* Initialize the first block of the first file: */
+	  /* Initialize the first blocks of the first file: */
 	  init_block(s);
 	}
 
 
 	/* ===========================================================================
-	 * Send a stored block
+	 * Send a stored blocks
 	 */
 	function _tr_stored_block(s, buf, stored_len, last)
 	//DeflateState *s;
-	//charf *buf;       /* input block */
-	//ulg stored_len;   /* length of input block */
-	//int last;         /* one if this is the last block for a file */
+	//charf *buf;       /* input blocks */
+	//ulg stored_len;   /* length of input blocks */
+	//int last;         /* one if this is the last blocks for a file */
 	{
-	  send_bits(s, (STORED_BLOCK<<1)+(last ? 1 : 0), 3);    /* send block type */
+	  send_bits(s, (STORED_BLOCK<<1)+(last ? 1 : 0), 3);    /* send blocks type */
 	  copy_block(s, buf, stored_len, true); /* with header */
 	}
 
 
 	/* ===========================================================================
-	 * Send one empty static block to give enough lookahead for inflate.
+	 * Send one empty static blocks to give enough lookahead for inflate.
 	 * This takes 10 bits, of which 7 may remain in the bit buffer.
 	 */
 	function _tr_align(s) {
@@ -25761,19 +25761,19 @@
 
 
 	/* ===========================================================================
-	 * Determine the best encoding for the current block: dynamic trees, static
-	 * trees or store, and output the encoded block to the zip file.
+	 * Determine the best encoding for the current blocks: dynamic trees, static
+	 * trees or store, and output the encoded blocks to the zip file.
 	 */
 	function _tr_flush_block(s, buf, stored_len, last)
 	//DeflateState *s;
-	//charf *buf;       /* input block, or NULL if too old */
-	//ulg stored_len;   /* length of input block */
-	//int last;         /* one if this is the last block for a file */
+	//charf *buf;       /* input blocks, or NULL if too old */
+	//ulg stored_len;   /* length of input blocks */
+	//int last;         /* one if this is the last blocks for a file */
 	{
 	  var opt_lenb, static_lenb;  /* opt_len and static_len in bytes */
 	  var max_blindex = 0;        /* index of last bit length code of non zero freq */
 
-	  /* Build the Huffman trees unless a stored block is forced */
+	  /* Build the Huffman trees unless a stored blocks is forced */
 	  if (s.level > 0) {
 
 	    /* Check if the file is binary or text */
@@ -25790,7 +25790,7 @@
 	    // Tracev((stderr, "\ndist data: dyn %ld, stat %ld", s->opt_len,
 	    //        s->static_len));
 	    /* At this point, opt_len and static_len are the total bit lengths of
-	     * the compressed block data, excluding the tree representations.
+	     * the compressed blocks data, excluding the tree representations.
 	     */
 
 	    /* Build the bit length tree for the above two trees, and get the index
@@ -25798,7 +25798,7 @@
 	     */
 	    max_blindex = build_bl_tree(s);
 
-	    /* Determine the best encoding. Compute the block lengths in bytes. */
+	    /* Determine the best encoding. Compute the blocks lengths in bytes. */
 	    opt_lenb = (s.opt_len+3+7) >>> 3;
 	    static_lenb = (s.static_len+3+7) >>> 3;
 
@@ -25810,7 +25810,7 @@
 
 	  } else {
 	    // Assert(buf != (char*)0, "lost buf");
-	    opt_lenb = static_lenb = stored_len + 5; /* force a stored block */
+	    opt_lenb = static_lenb = stored_len + 5; /* force a stored blocks */
 	  }
 
 	  if ((stored_len+4 <= opt_lenb) && (buf !== -1)) {
@@ -25818,9 +25818,9 @@
 
 	    /* The test buf != NULL is only necessary if LIT_BUFSIZE > WSIZE.
 	     * Otherwise we can't have processed more than WSIZE input bytes since
-	     * the last block flush, because compression would have been
+	     * the last blocks flush, because compression would have been
 	     * successful. If LIT_BUFSIZE <= WSIZE, it is never too late to
-	     * transform a block into a stored block.
+	     * transform a blocks into a stored blocks.
 	     */
 	    _tr_stored_block(s, buf, stored_len, last);
 
@@ -25849,7 +25849,7 @@
 
 	/* ===========================================================================
 	 * Save the match info and tally the frequency counts. Return true if
-	 * the current block must be flushed.
+	 * the current blocks must be flushed.
 	 */
 	function _tr_tally(s, dist, lc)
 	//    deflate_state *s;
@@ -25879,11 +25879,11 @@
 	    s.dyn_dtree[d_code(dist) * 2]/*.Freq*/++;
 	  }
 
-	// (!) This block is disabled in zlib defailts,
+	// (!) This blocks is disabled in zlib defailts,
 	// don't enable it for binary compatibility
 
 	//#ifdef TRUNCATE_BLOCK
-	//  /* Try to guess if it is profitable to stop the current block here */
+	//  /* Try to guess if it is profitable to stop the current blocks here */
 	//  if ((s.last_lit & 0x1fff) === 0 && s.level > 2) {
 	//    /* Compute an upper bound for the compressed length */
 	//    out_length = s.last_lit*8;
@@ -26065,11 +26065,11 @@
 	var    DICTID = 10;    /* i: waiting for dictionary check value */
 	var    DICT = 11;      /* waiting for inflateSetDictionary() call */
 	var        TYPE = 12;      /* i: waiting for type bits, including last-flag bit */
-	var        TYPEDO = 13;    /* i: same, but skip check to exit inflate on new block */
+	var        TYPEDO = 13;    /* i: same, but skip check to exit inflate on new blocks */
 	var        STORED = 14;    /* i: waiting for stored size (length and complement) */
 	var        COPY_ = 15;     /* i/o: same as COPY below, but only first time in */
-	var        COPY = 16;      /* i/o: waiting for input or output to copy stored block */
-	var        TABLE = 17;     /* i: waiting for dynamic block table lengths */
+	var        COPY = 16;      /* i/o: waiting for input or output to copy stored blocks */
+	var        TABLE = 17;     /* i: waiting for dynamic blocks table lengths */
 	var        LENLENS = 18;   /* i: waiting for code length code lengths */
 	var        CODELENS = 19;  /* i: waiting for length/lit and distance code lengths */
 	var            LEN_ = 20;      /* i: same as LEN below, but only first time in */
@@ -26109,7 +26109,7 @@
 
 	function InflateState() {
 	  this.mode = 0;             /* current inflate mode */
-	  this.last = false;          /* true if processing last block */
+	  this.last = false;          /* true if processing last blocks */
 	  this.wrap = 0;              /* bit 0 true for zlib, bit 1 true for gzip */
 	  this.havedict = false;      /* true if dictionary provided */
 	  this.flags = 0;             /* gzip header method and flags (0 if zlib) */
@@ -26130,7 +26130,7 @@
 	  this.hold = 0;              /* input bit accumulator */
 	  this.bits = 0;              /* number of bits in "in" */
 
-	  /* for string and stored block copying */
+	  /* for string and stored blocks copying */
 	  this.length = 0;            /* literal or length of data to copy */
 	  this.offset = 0;            /* distance back to copy string from */
 
@@ -26779,14 +26779,14 @@
 	      //---//
 
 	      switch ((hold & 0x03)/*BITS(2)*/) {
-	      case 0:                             /* stored block */
-	        //Tracev((stderr, "inflate:     stored block%s\n",
+	      case 0:                             /* stored blocks */
+	        //Tracev((stderr, "inflate:     stored blocks%s\n",
 	        //        state.last ? " (last)" : ""));
 	        state.mode = STORED;
 	        break;
-	      case 1:                             /* fixed block */
+	      case 1:                             /* fixed blocks */
 	        fixedtables(state);
-	        //Tracev((stderr, "inflate:     fixed codes block%s\n",
+	        //Tracev((stderr, "inflate:     fixed codes blocks%s\n",
 	        //        state.last ? " (last)" : ""));
 	        state.mode = LEN_;             /* decode codes */
 	        if (flush === Z_TREES) {
@@ -26797,13 +26797,13 @@
 	          break inf_leave;
 	        }
 	        break;
-	      case 2:                             /* dynamic block */
-	        //Tracev((stderr, "inflate:     dynamic codes block%s\n",
+	      case 2:                             /* dynamic blocks */
+	        //Tracev((stderr, "inflate:     dynamic codes blocks%s\n",
 	        //        state.last ? " (last)" : ""));
 	        state.mode = TABLE;
 	        break;
 	      case 3:
-	        strm.msg = 'invalid block type';
+	        strm.msg = 'invalid blocks type';
 	        state.mode = BAD;
 	      }
 	      //--- DROPBITS(2) ---//
@@ -26825,7 +26825,7 @@
 	      }
 	      //===//
 	      if ((hold & 0xffff) !== ((hold >>> 16) ^ 0xffff)) {
-	        strm.msg = 'invalid stored block lengths';
+	        strm.msg = 'invalid stored blocks lengths';
 	        state.mode = BAD;
 	        break;
 	      }
@@ -27041,9 +27041,9 @@
 	      /* handle error breaks in while */
 	      if (state.mode === BAD) { break; }
 
-	      /* check for end-of-block code (better have one) */
+	      /* check for end-of-blocks code (better have one) */
 	      if (state.lens[256] === 0) {
-	        strm.msg = 'invalid code -- missing end-of-block';
+	        strm.msg = 'invalid code -- missing end-of-blocks';
 	        state.mode = BAD;
 	        break;
 	      }
@@ -27170,7 +27170,7 @@
 	        break;
 	      }
 	      if (here_op & 32) {
-	        //Tracevv((stderr, "inflate:         end of block\n"));
+	        //Tracevv((stderr, "inflate:         end of blocks\n"));
 	        state.back = -1;
 	        state.mode = TYPE;
 	        break;
@@ -27298,7 +27298,7 @@
 	            state.mode = BAD;
 	            break;
 	          }
-	// (!) This block is disabled in zlib defailts,
+	// (!) This blocks is disabled in zlib defailts,
 	// don't enable it for binary compatibility
 	//#ifdef INFLATE_ALLOW_INVALID_DISTANCE_TOOFAR_ARRR
 	//          Trace((stderr, "inflate.c too far\n"));
@@ -27523,7 +27523,7 @@
 	/*
 	   Decode literal, length, and distance codes and write out the resulting
 	   literal and match bytes until either not enough input or output is
-	   available, an end-of-block is encountered, or a data error is encountered.
+	   available, an end-of-blocks is encountered, or a data error is encountered.
 	   When large enough input and output buffers are supplied to inflate(), for
 	   example, a 16K input buffer and a 64K output buffer, more than 95% of the
 	   inflate execution time is spent in this routine.
@@ -27539,8 +27539,8 @@
 	   On return, state.mode is one of:
 
 	        LEN -- ran out of enough output space or enough available input
-	        TYPE -- reached end of block code, inflate() to interpret next block
-	        BAD -- error in block data
+	        TYPE -- reached end of blocks code, inflate() to interpret next blocks
+	        BAD -- error in blocks data
 
 	   Notes:
 
@@ -27612,7 +27612,7 @@
 	  dmask = (1 << state.distbits) - 1;
 
 
-	  /* decode literals and length/distances until end-of-block or not enough
+	  /* decode literals and length/distances until end-of-blocks or not enough
 	     input data or output space */
 
 	  top:
@@ -27698,7 +27698,7 @@
 	                  break top;
 	                }
 
-	// (!) This block is disabled in zlib defailts,
+	// (!) This blocks is disabled in zlib defailts,
 	// don't enable it for binary compatibility
 	//#ifdef INFLATE_ALLOW_INVALID_DISTANCE_TOOFAR_ARRR
 	//                if (len <= op - whave) {
@@ -27810,8 +27810,8 @@
 	        here = lcode[(here & 0xffff)/*here.val*/ + (hold & ((1 << op) - 1))];
 	        continue dolen;
 	      }
-	      else if (op & 32) {                     /* end-of-block */
-	        //Tracevv((stderr, "inflate:         end of block\n"));
+	      else if (op & 32) {                     /* end-of-blocks */
+	        //Tracevv((stderr, "inflate:         end of blocks\n"));
 	        state.mode = TYPE;
 	        break top;
 	      }
@@ -28090,7 +28090,7 @@
 	      here_val = base[base_index + work[sym]];
 	    }
 	    else {
-	      here_op = 32 + 64;         /* end of block */
+	      here_op = 32 + 64;         /* end of blocks */
 	      here_val = 0;
 	    }
 
@@ -29204,7 +29204,7 @@
 	}
 
 	// 11. Expected to throw an error:
-	// assert.throws(block, Error_opt, message_opt);
+	// assert.throws(blocks, Error_opt, message_opt);
 
 	assert.throws = function(block, /*optional*/error, /*optional*/message) {
 	  _throws.apply(this, [true].concat(pSlice.call(arguments)));
@@ -30596,7 +30596,7 @@
 	      this._fontSize = 12;
 	      this._font = null;
 	      this._registeredFonts = {};
-	      
+
 	    },
 	    font: function(src, family, size) {
 	      var cacheKey, font, id, _ref;
@@ -31697,12 +31697,12 @@
 	 * An implementation of Ruby's string.succ method.
 	 * By Devon Govett
 	 *
-	 * Returns the successor to str. The successor is calculated by incrementing characters starting 
+	 * Returns the successor to str. The successor is calculated by incrementing characters starting
 	 * from the rightmost alphanumeric (or the rightmost character if there are no alphanumerics) in the
 	 * string. Incrementing a digit always results in another digit, and incrementing a letter results in
 	 * another letter of the same case.
 	 *
-	 * If the increment generates a carry, the character to the left of it is incremented. This 
+	 * If the increment generates a carry, the character to the left of it is incremented. This
 	 * process repeats until there is no carry, adding an additional character if necessary.
 	 *
 	 * succ("abcd")      == "abce"
@@ -67155,20 +67155,20 @@
 	/*
 	# MIT LICENSE
 	# Copyright (c) 2011 Devon Govett
-	# 
-	# Permission is hereby granted, free of charge, to any person obtaining a copy of this 
-	# software and associated documentation files (the "Software"), to deal in the Software 
-	# without restriction, including without limitation the rights to use, copy, modify, merge, 
-	# publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons 
+	#
+	# Permission is hereby granted, free of charge, to any person obtaining a copy of this
+	# software and associated documentation files (the "Software"), to deal in the Software
+	# without restriction, including without limitation the rights to use, copy, modify, merge,
+	# publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons
 	# to whom the Software is furnished to do so, subject to the following conditions:
-	# 
-	# The above copyright notice and this permission notice shall be included in all copies or 
+	#
+	# The above copyright notice and this permission notice shall be included in all copies or
 	# substantial portions of the Software.
-	# 
-	# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING 
-	# BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
-	# NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
-	# DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+	#
+	# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+	# BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+	# NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+	# DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 	# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 	*/
 
@@ -67740,11 +67740,11 @@
 				if(!curGroup || deco !== curGroup.decoration ||
 						style !== curGroup.decorationStyle || color !== curGroup.decorationColor ||
 						deco === 'lineThrough') {
-			
+
 					curGroup = {
 						line: line,
-						decoration: deco, 
-						decorationColor: color, 
+						decoration: deco,
+						decorationColor: color,
 						decorationStyle: style,
 						inlines: [ inline ]
 					};
@@ -67754,7 +67754,7 @@
 				}
 			}
 		}
-		
+
 		return groups;
 	}
 
@@ -67781,9 +67781,9 @@
 			ascent = biggerInline.font.ascender / 1000 * biggerInline.fontSize,
 			height = biggerInline.height,
 			descent = height - ascent;
-		
+
 		var lw = 0.5 + Math.floor(Math.max(biggerInline.fontSize - 8, 0) / 2) * 0.12;
-		
+
 		switch (group.decoration) {
 			case 'underline':
 				y += lineAscent + descent * 0.45;
@@ -67798,7 +67798,7 @@
 				throw 'Unkown decoration : ' + group.decoration;
 		}
 		pdfKitDoc.save();
-		
+
 		if(group.decorationStyle === 'double') {
 			var gap = Math.max(0.5, lw*2);
 			pdfKitDoc	.fillColor(group.decorationColor)
@@ -67835,7 +67835,7 @@
 					rwx += sh*6;
 				}
 			pdfKitDoc.stroke(group.decorationColor);
-			
+
 		} else {
 			pdfKitDoc	.fillColor(group.decorationColor)
 						.rect(x + firstInline.x, y-lw/2, totalWidth, lw)

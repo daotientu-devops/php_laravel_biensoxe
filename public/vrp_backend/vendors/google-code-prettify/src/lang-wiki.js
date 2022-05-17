@@ -37,9 +37,9 @@ PR['registerLangHandler'](
          // A WikiWord
          [PR['PR_LITERAL'],     /^(?:[A-Z][a-z][a-z0-9]+[A-Z][a-z][a-zA-Z0-9]+)\b/
           ],
-         // A preformatted block in an unknown language
+         // A preformatted blocks in an unknown language
          ['lang-',           /^\{\{\{([\s\S]+?)\}\}\}/],
-         // A block of source code in an unknown language
+         // A blocks of source code in an unknown language
          ['lang-',           /^`([^\r\n`]+)`/],
          // An inline URL.
          [PR['PR_STRING'],

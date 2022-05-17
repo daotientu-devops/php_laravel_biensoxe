@@ -4858,7 +4858,7 @@ Runner.prototype.runSuite = function(suite, fn) {
     if (afterAllHookCalled) {
       fn(errSuite);
     } else {
-      // mark that the afterAll block has been called once
+      // mark that the afterAll blocks has been called once
       // and so can be skipped if there is an error in it.
       afterAllHookCalled = true;
       self.hook('afterAll', function() {
@@ -4931,11 +4931,11 @@ Runner.prototype.uncaught = function(err) {
  // recover from hooks
   if (runnable.type === 'hook') {
     var errSuite = this.suite;
-    // if hook failure is in afterEach block
+    // if hook failure is in afterEach blocks
     if (runnable.fullTitle().indexOf('after each') > -1) {
       return this.hookErr(err, errSuite, true);
     }
-    // if hook failure is in beforeEach block
+    // if hook failure is in beforeEach blocks
     if (runnable.fullTitle().indexOf('before each') > -1) {
       return this.hookErr(err, errSuite, false);
     }
@@ -12030,7 +12030,7 @@ var exec = require('child_process').exec
 function which(name) {
   var paths = process.env.PATH.split(':');
   var loc;
-  
+
   for (var i = 0, len = paths.length; i < len; ++i) {
     loc = path.join(paths[i], name);
     if (exists(loc)) return loc;

@@ -679,7 +679,7 @@
                         (!isValid(startDecade, 'y') && !minDateDecade && !maxDateDecade ? ' disabled' : '') + '" data-selection="' + (startDecade.year() + 6) + '">' + (startDecade.year() + 1) + ' - ' + (startDecade.year() + 12) + '</span>';
                     startDecade.add(12, 'y');
                 }
-                html += '<span></span><span></span><span></span>'; //push the dangling block over, at least this way it's even
+                html += '<span></span><span></span><span></span>'; //push the dangling blocks over, at least this way it's even
 
                 decadesView.find('td').html(html);
                 decadesViewHeader.eq(1).text((startedAt.year() + 1) + '-' + (startDecade.year()));

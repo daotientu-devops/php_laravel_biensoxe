@@ -21,14 +21,14 @@
         height:100%;
         /* Set a 10 pixel right and bottom margin */
         margin:0 10px 10px 0;
-        /* You may wish to float the vertical sliders left or display:inline-block */
+        /* You may wish to float the vertical sliders left or display:inline-blocks */
         /* float:left; */
         }
 /* Shared rules - both horizontal & vertical sliders */
 .fd-slider,
 .fd-slider-vertical
         {
-        /* display:block required as the wrapper element is a span */
+        /* display:blocks required as the wrapper element is a span */
         display:block;
         /* This lets us absolutely position the drag handle */
         position:relative;

@@ -730,7 +730,7 @@ describe("composeImages", function() {
         }, null);
     });
 
-    xit('should call composeImages on one empty SVG as a source. This may block composeImages.', function (done) {
+    xit('should call composeImages on one empty SVG as a source. This may blocks composeImages.', function (done) {
         var sources = placeholder.html('<div id="test-container" style="width: 600px;height: 400px">' +
         '<svg class="legendLayer" style="width:inherit;height:inherit;" xmlns="http://www.w3.org/2000/svg" id="blockingTest">' +
         '</svg>' +
