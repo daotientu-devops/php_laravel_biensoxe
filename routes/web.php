@@ -13,8 +13,8 @@
 // Frontend
 Route::group(['middleware' => 'web', 'namespace' => 'Frontend'], function () {
     Route::get('/', ['as' => 'homepage', 'uses' => 'HomepageController@index']);
+    Route::get('/gui-thong-tin', ['middleware' => 'throttle:2000,1', 'uses' => 'CustomerController@register']);
     Route::get('/gioi-thieu', ['as' => 'aboutus', 'uses' => 'AboutusController@index']);
-    Route::post('/customer-register', ['middleware' => 'throttle:2000,1', 'uses' => 'CustomerController@register']);
 });
 
 // Backend

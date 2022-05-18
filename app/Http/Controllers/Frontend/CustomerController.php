@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Frontend;
 
+use App\Http\Controllers\Controller;
 use App\Core\Utilities\SecurityUtility;
 use App\Customer;
 use Illuminate\Http\Request;
@@ -15,26 +16,7 @@ class CustomerController extends Controller
      */
     public function register(Request $request)
     {
-        $fullname = SecurityUtility::removeXSS($request->get('fullname_register'));
-        $email = SecurityUtility::removeXSS($request->get('email_register'));
-        $telephone = SecurityUtility::removeXSS($request->get('telephone_register'));
-        $organization = SecurityUtility::removeXSS($request->get('organization_register'));
-        $messageSuccess = 'Gửi thông tin đăng ký thành công';
-        $messageError = 'Gửi thông tin đăng ký thất bại. Vui lòng thử lại sau ít phút nữa!';
-        try {
-            $customer = new Customer([
-                'fullname' => $fullname,
-                'email' => $email,
-                'telephone' => $telephone,
-                'organization' => $organization
-            ]);
-            $customer->save();
-            $result = json_encode(array('error' => 0, 'message' => $messageSuccess, 'data' => array()));
-            return $result;
-        } catch (Exception $exception) {
-            Log::error('Không gửi được thông tin đăng ký: ' . $exception->getMessage());
-            return json_encode(array('error' => 1, 'message' => $messageError, 'data' => array()));
-        }
+        return view('vrp_frontend.customer');
     }
 
     /**

@@ -6,8 +6,8 @@
                 <p style="font-size: 15px;">Hỗ trợ kiểm tra tình trạng xe thông qua biển số</p></div>
             <div class="col-md-2">
                 <nav class="nav flex-column">
-                    <a target="_blank" href="/" class="nav-item py-2">Trang chủ</a>
-                    <a target="_blank" href="#" class="nav-item py-2">Điều khoản dịch vụ</a>
+                    <a href="/" class="nav-item py-2">Trang chủ</a>
+                    <a href="/gioi-thieu" class="nav-item py-2">Điều khoản dịch vụ</a>
                 </nav>
             </div>
             <div class="col-md-2">

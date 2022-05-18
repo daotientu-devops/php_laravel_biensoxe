@@ -1,4 +1,4 @@
-@include('vrp_frontend.layouts.default')
+@extends('vrp_frontend.layouts.default')
 @section('content')
 <div class="container">
     <div class="content">
