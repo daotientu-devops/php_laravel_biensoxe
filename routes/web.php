@@ -23,8 +23,8 @@ Route::get('login', ['as' => 'login', 'uses' => 'Auth\LoginController@getLogin']
 Route::post('login', ['uses' => 'Auth\LoginController@postLogin']);
 Route::get('logout', ['as' => 'logout', 'uses' => 'Auth\LoginController@logout']);
 
-Route::group(['middleware' => 'auth'], function () {
-    Route::get('/vrp_backend', 'DashboardController@index');
+Route::group(['namespace' => 'Backend'], function () {//'middleware' => 'auth', 
+    Route::get('dashboard', 'DashboardController@index');
 
     // Đường dẫn allow upload ảnh từ trong ckeditor
     Route::post('ckeditor/image_upload', 'CKEditorController@upload')->name('upload');

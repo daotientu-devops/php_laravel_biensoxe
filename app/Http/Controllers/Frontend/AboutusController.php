@@ -14,6 +14,6 @@ class AboutusController extends Controller
      */
     public function index()
     {
-        return view('vrp_frontend.aboutus');
+        return view('frontend.aboutus');
     }
 }

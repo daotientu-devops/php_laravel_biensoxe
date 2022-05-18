@@ -16,7 +16,7 @@ class CustomerController extends Controller
      */
     public function register(Request $request)
     {
-        return view('vrp_frontend.customer');
+        return view('frontend.customer');
     }
 
     /**

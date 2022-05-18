@@ -1,4 +1,4 @@
-@extends('vrp_frontend.layouts.default')
+@extends('frontend.layouts.default')
 @section('content')
 <div class="container">
     <div class="content">
@@ -28,11 +28,11 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    @include('vrp_frontend.blocks.statistic')
-                    @include('vrp_frontend.blocks.affiliate_link')
+                    @include('frontend.blocks.statistic')
+                    @include('frontend.blocks.affiliate_link')
                 </div>
             </div>
-            @include('vrp_frontend.blocks.search_recently')
+            @include('frontend.blocks.search_recently')
         </div>
     </div>
 </div>

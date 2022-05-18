@@ -14,6 +14,6 @@ class HomepageController extends Controller
      */
     public function index()
     {
-        return view('vrp_frontend.homepage');
+        return view('frontend.homepage');
     }
 }

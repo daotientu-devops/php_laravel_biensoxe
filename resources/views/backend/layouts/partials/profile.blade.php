@@ -5,10 +5,11 @@
             <div class="nav toggle">
                 <a id="menu_toggle"><i class="fa fa-bars"></i></a>
             </div>
+            @if (auth()->user() !== null)
             <ul class="nav navbar-nav navbar-right">
                 <li class="">
                     <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        <img src="{{ asset(env('FOLDER_PUBLIC').'/assets/images/user.png') }}" alt="">{{ auth()->user()->name }}
+                        <img src="{{ asset(env('FOLDER_PUBLIC').'/build/images/user.png') }}" alt="">{{ auth()->user()->name }}
                         <span class=" fa fa-angle-down"></span>
                     </a>
                     <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -17,6 +18,7 @@
                     </ul>
                 </li>
             </ul>
+            @endif
         </nav>
     </div>
 </div>
