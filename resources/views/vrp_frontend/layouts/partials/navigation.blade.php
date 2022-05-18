@@ -15,9 +15,8 @@
                     <a class="nav-link" href="/gui-thong-tin">Gửi thông tin</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Giới thiệu</a>
+                    <a class="nav-link" href="/gioi-thieu">Giới thiệu</a>
                 </li>
-
             </ul>
         </div>
     </div>

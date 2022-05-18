@@ -4,11 +4,11 @@
         <table class="table-sm table-borderless" width="100%" style="font-size: .9em;">
             <tbody>
             <tr>
-                <td><i class="fa fa-search text-primary"></i> Lượt tìm kiếm</td>
+                <td><i class="fa fa-search text-primary"></i> Số người truy cập</td>
                 <td>15585317</td>
             </tr>
             <tr>
-                <td><i class="fa fa-file text-success"></i> Lượt đóng góp</td>
+                <td><i class="fa fa-file text-success"></i> Số người đóng góp</td>
                 <td>9928</td>
             </tr>
             </tbody>
