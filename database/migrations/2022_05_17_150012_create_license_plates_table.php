@@ -14,7 +14,12 @@ class CreateLicensePlatesTable extends Migration
     public function up()
     {
         Schema::create('license_plates', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
+            $table->string('license_plate', 15);
+            $table->string('brand_name');
+            $table->string('province_name');
+            $table->string('url');
+            $table->string('image_url');
             $table->timestamps();
         });
     }

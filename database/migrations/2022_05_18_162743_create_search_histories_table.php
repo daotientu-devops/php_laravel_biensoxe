@@ -14,7 +14,8 @@ class CreateSearchHistoriesTable extends Migration
     public function up()
     {
         Schema::create('search_histories', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
+            $table->string('license_plate_id');
             $table->timestamps();
         });
     }

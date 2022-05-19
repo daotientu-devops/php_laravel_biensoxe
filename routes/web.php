@@ -14,6 +14,7 @@
 Route::group(['middleware' => 'web', 'namespace' => 'Frontend'], function () {
     Route::get('/', ['as' => 'homepage', 'uses' => 'HomepageController@index']);
     Route::get('/gui-thong-tin', ['middleware' => 'throttle:2000,1', 'uses' => 'CustomerController@register']);
+    Route::post('/gui-thong-tin', ['middleware' => 'throttle:2000,1', 'uses' => 'CustomerController@send']);
     Route::get('/gioi-thieu', ['as' => 'aboutus', 'uses' => 'AboutusController@index']);
 });
 
@@ -23,7 +24,7 @@ Route::get('login', ['as' => 'login', 'uses' => 'Auth\LoginController@getLogin']
 Route::post('login', ['uses' => 'Auth\LoginController@postLogin']);
 Route::get('logout', ['as' => 'logout', 'uses' => 'Auth\LoginController@logout']);
 
-Route::group(['namespace' => 'Backend'], function () {//'middleware' => 'auth', 
+Route::group(['namespace' => 'Backend'], function () {//'middleware' => 'auth',
     Route::get('dashboard', 'DashboardController@index');
 
     // Đường dẫn allow upload ảnh từ trong ckeditor
