@@ -20,7 +20,7 @@
                                 <div class="form-group row">
                                     <label for="url" class="col-sm-2 col-form-label">Hãng xe: *</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="brand" name="brand" required>
+                                        <input type="text" class="form-control" id="brand_name" name="brand_name" required>
                                     </div>
                                 </div>
                                 <div class="form-group row">

@@ -3,10 +3,8 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Core\Utilities\SecurityUtility;
-use App\Customer;
+use App\SearchHistories;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class CustomerController extends Controller
 {
@@ -23,31 +21,19 @@ class CustomerController extends Controller
      * @param Request $request
      * @return false|string
      */
-    public function registerV2(Request $request)
+    public function send(Request $request)
     {
-        $fullname = SecurityUtility::removeXSS($request->get('fullname_register'));
-        $email = SecurityUtility::removeXSS($request->get('email_register'));
-        $telephone = SecurityUtility::removeXSS($request->get('telephone_register'));
-        $organization = SecurityUtility::removeXSS($request->get('organization_register'));
-        $position = SecurityUtility::removeXSS($request->get('position_register'));
-        $number_of_employees = SecurityUtility::removeXSS($request->get('number_of_employees_register'));
-        $messageSuccess = 'Gửi thông tin đăng ký thành công';
-        $messageError = 'Gửi thông tin đăng ký thất bại. Vui lòng thử lại sau ít phút nữa!';
-        try {
-            $customer = new Customer([
-                'fullname' => $fullname,
-                'email' => $email,
-                'telephone' => $telephone,
-                'organization' => $organization,
-                'position' => $position,
-                'number_of_employees' => $number_of_employees
-            ]);
-            $customer->save();
-            $result = json_encode(array('error' => 0, 'message' => $messageSuccess, 'data' => array()));
-            return $result;
-        } catch (Exception $exception) {
-            Log::error('Không gửi được thông tin đăng ký: ' . $exception->getMessage());
-            return json_encode(array('error' => 1, 'message' => $messageError, 'data' => array()));
-        }
+        $license_plate = $request->get('license_plate');
+        $brand_name = $request->get('brand_name');
+        $url = $request->get('url');
+        $image_url = $request->get('image_url');
+        $licensePlate = new SearchHistories([
+            'license_plate' => $license_plate,
+            'brand_name' => $brand_name,
+            'url' => $url,
+            'image_url' => $image_url
+        ]);
+        $licensePlate->save();
+        return redirect('gui-thong-tin')->with('message', 'Gửi thông tin biển số xe thành công');
     }
 }

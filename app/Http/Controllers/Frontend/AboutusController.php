@@ -1,9 +1,8 @@
 <?php
 
 namespace App\Http\Controllers\Frontend;
-use App\Http\Controllers\Controller;
 
-use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class AboutusController extends Controller
 {

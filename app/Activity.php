@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class LicensePlate extends Model
+class Activity extends Model
 {
     /**
      * The attributes that are mass assignable
@@ -12,10 +12,12 @@ class LicensePlate extends Model
      * @var array
      */
     protected $fillable = [
-        'license_plate',
-        'brand_name',
-        'province_name',
+        'subject',
+        'content',
         'url',
-        'image_url'
+        'method',
+        'ip',
+        'agent',
+        'user_id'
     ];
 }

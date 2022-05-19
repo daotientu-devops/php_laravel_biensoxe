@@ -13,7 +13,8 @@
 // Frontend
 Route::group(['middleware' => 'web', 'namespace' => 'Frontend'], function () {
     Route::get('/', ['as' => 'homepage', 'uses' => 'HomepageController@index']);
-    Route::get('/gui-thong-tin', ['middleware' => 'throttle:2000,1', 'uses' => 'CustomerController@register']);
+    Route::post('/tim-kiem-thong-tin', ['middleware' => 'throttle:2000,1', 'uses' => 'HomepageController@search']);
+    Route::get('/gui-thong-tin', ['uses' => 'CustomerController@register']);
     Route::post('/gui-thong-tin', ['middleware' => 'throttle:2000,1', 'uses' => 'CustomerController@send']);
     Route::get('/gioi-thieu', ['as' => 'aboutus', 'uses' => 'AboutusController@index']);
 });
